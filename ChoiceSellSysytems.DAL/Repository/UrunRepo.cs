@@ -25,6 +25,7 @@ namespace ChoiceSellSysytems.DAL.Repository
             {
                 var Liste = db.Urun.Where(p => p.Silindimi == false).Select(a => new WMUrun
                 {
+                    UrunID=a.UrunID,
                     UrunAdi = a.UrunAdi,
                     UrunFiyati = a.UrunFiyati,
                     Indirim = a.Indirim,
@@ -47,6 +48,30 @@ namespace ChoiceSellSysytems.DAL.Repository
             {
                 var Liste = db.Urun.Where(p => p.IndirimVarmi == true).Select(a => new WMUrun
                 {
+                    UrunID= a.UrunID,
+                    UrunAdi = a.UrunAdi,
+                    UrunFiyati = a.UrunFiyati,
+                    Indirim = a.Indirim,
+                    IndirimVarmi = a.IndirimVarmi,
+                    Gramaj = a.Gramaj,
+                    UrunAciklama = a.UrunAciklama,
+                    Kategorisi = a.Kategori.KategoriAdi,
+                    UrunKategorisi = a.UrunKategori.UrunKategoriAdı,
+                    UrunCinsi = a.Uruncinsi.Cinsi,
+                    Image = a.Image
+
+                }).ToList();
+
+                return Liste;
+            }
+        }
+        public static List<WMUrun> IndirimsizUrunleriListele()
+        {
+            using (DataDb db = new DataDb())
+            {
+                var Liste = db.Urun.Where(p => p.IndirimVarmi == false).Select(a => new WMUrun
+                {
+                    UrunID = a.UrunID,
                     UrunAdi = a.UrunAdi,
                     UrunFiyati = a.UrunFiyati,
                     Indirim = a.Indirim,
@@ -171,6 +196,66 @@ namespace ChoiceSellSysytems.DAL.Repository
 
                 db.Kullanici.Add(ekle);
                 db.SaveChanges();
+            }
+        }
+        public static void IndirimDegistir(WMIndirimDegistir Urun)
+        {
+            using (DataDb db = new DataDb())
+            {
+                int id = Urun.UrununID;
+                int kontol = int.Parse(Urun.Indirim);
+                if(kontol==0)
+                {
+                    var bul = db.Urun.FirstOrDefault(p => p.UrunID == id);
+                    bul.Indirim = Urun.Indirim;
+                    bul.IndirimVarmi = false;
+
+                    db.SaveChanges();
+                }
+                else
+                {
+                    var bul = db.Urun.FirstOrDefault(p => p.UrunID == id);
+                    bul.Indirim = Urun.Indirim;
+                    bul.IndirimVarmi = true;
+                    db.SaveChanges();
+                }
+            }
+        }
+        public static void UrunDuzenle(WMUrun Urun)
+        {
+            using (DataDb db = new DataDb())
+            {
+                var bul = db.Urun.Find(Urun.UrunID);
+                bul.UrunAdi = Urun.UrunAdi;
+                bul.UrunAciklama = Urun.UrunAciklama;
+                bul.UrunFiyati = Urun.UrunFiyati;
+                bul.Indirim = Urun.Indirim;
+                bul.Gramaj = Urun.Gramaj;
+                bul.Image = Urun.Image;
+
+                db.SaveChanges();
+            }
+        }
+        public static WMUrun UrunSec(int Urunid)
+        {
+            using (DataDb db = new DataDb())
+            {
+                var Secim = db.Urun.Where(p => p.Silindimi == false).Select(a => new WMUrun
+                {
+                    UrunID = a.UrunID,
+                    UrunAdi = a.UrunAdi,
+                    UrunFiyati = a.UrunFiyati,
+                    Indirim = a.Indirim,
+                    IndirimVarmi = a.IndirimVarmi,
+                    Gramaj = a.Gramaj,
+                    UrunAciklama = a.UrunAciklama,
+                    Kategorisi = a.Kategori.KategoriAdi,
+                    UrunKategorisi = a.UrunKategori.UrunKategoriAdı,
+                    UrunCinsi = a.Uruncinsi.Cinsi,
+                    Image = a.Image
+
+                }).FirstOrDefault();
+                return Secim;
             }
         }
     }

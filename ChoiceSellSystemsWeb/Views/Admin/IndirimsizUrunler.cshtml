@@ -1,0 +1,140 @@
+﻿@model List<ChoiceSellSystems.Entity.ViewModels.WMUrun>
+
+@{
+    ViewBag.Title = "IndirimsizUrunler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">İndirimde Olmayan Ürünlerin Listesi <button class="btn btn-success" data-toggle="modal" data-target="#Comar"><i class="fa fa-paw"></i> Çomar Yardım</button></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    İndirimde Olmayan Ürünler Gösterilmektedir.
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>Kategorisi</th>
+                                <th>Ürün Kategorisi</th>
+                                <th>Ürün Cinsi</th>
+                                <th>Ürün Adı</th>
+                                <th>Ürün Fiyatı</th>
+                                <th>İndirimli Fiyatı</th>
+                                <th>Gramajı</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Kategorisi</td>
+                                        <td>@item.UrunKategorisi</td>
+                                        <td>@item.UrunCinsi</td>
+                                        <td>@item.UrunAdi</td>
+                                        <td>@item.UrunFiyati</td>
+                                        <td>@item.Indirim</td>
+                                        <td>@item.Gramaj</td>
+                                        <td>
+                                            <button data-toggle="modal" data-target="#myModal" class="btn btn-info" onclick="Atama(@item.UrunID,@item.Indirim)">İndirim Güncelle</button>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">İndirim Durumunu Değiştir</h4>
+                    </div>
+                    <form role="form" method="post">
+                        <div class="modal-body">
+                            <input type="hidden" name="UrununID" id="UrunId" />
+                            <div class="form-group">
+                                <label>Bu Ürünün İndirim Durumu Güncellenecek Devam Edilsin mi?</label>
+                                <div class="form-group">
+                                    <label>İndirimli Fiyatı</label>
+                                    <input class="form-control" name="Indirim" id="IndirimAta" type="number" min="0">
+                                </div>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        ÇOMAR AI V.1.2 (ALPHA)
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>
+                                            Merhaba! Ben SiteRobotu Çomar. Haydi Şimdi Bu ürünün İndirim Değerini Güncelleyelim.
+                                            Bu Ürünün Bir İndirimi Yok O yüzden "0" Görüyorsunuz!. Şimdi Bu Ürüne İndirim Verelim.
+                                            Önce Ürün Fiyatından Daha Fazla Olmayacak Bir fiyat Yazın Bu Fiyat, Ürünün indirimli
+                                            Fiyatı Olacaktır. İndirim, Ürünlerinizin Daha Hızlı Satılmasını Sağlayabilir. Hazırsanız
+                                            Başlayalım.
+                                        </p>
+                                    </div>
+                                    <div class="panel-footer">
+                                        Hazırsanız Şimdi Ürünü Güncelleyelim...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                            <button type="submit" class="btn btn-warning">Güncelle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="Comar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">ÇOMAR AI V.1.2 (ALPHA)</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                ÇOMAR YARDIM
+                            </div>
+                            <div class="panel-body">
+                                <p>
+                                    Merhaba! Ben SiteRobotu Çomar. Bu Sayfada İndirimdeki olmayan Ürünleri Gelişmiş Arama Özelliği İle
+                                    Donatılmış Tabloda Görmektesiniz. Bu Tablonun en Sağındaki Butona <strong>İNDİRİMİ GÜNCELLE</strong>
+                                    Butonuna Bastığınızda İlgili Ürünün İndirim Değerini Değiştirebilirsiniz. Buradan Ürün Silemez Ve Detay
+                                    Sayfasına gidemezsiniz. Ürünle İlgili Detay Görmek Ürünü Düzenlemek İçin Sol Taraftaki Kategorilerden
+                                    Yada Tüm Ürünlerdeki Gelişmiş Arama Özelliği Olan Tablodan Ürününüzü Arayabilirsiniz.
+                                </p>
+                            </div>
+                            <div class="panel-footer">
+                                Eğer Şimdi Hazırsanız Haydi Bir Ürünün İndirimini Güncelleyelim...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function Atama(val, val2)
+    {
+        document.getElementById("UrunId").value = val;
+        document.getElementById("IndirimAta").value = val2;
+    }
+</script>
+

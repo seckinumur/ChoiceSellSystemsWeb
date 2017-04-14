@@ -133,6 +133,8 @@ namespace ChoiceSellSystemsWeb.Controllers
             }
             else
             {
+                ViewBag.HataKullanici = "Kullanıcı Adı Girin!";
+                ViewBag.HataSifre = "Kullanıcı Şifresi Girin!";
                 return View();
             }
         }
@@ -145,8 +147,109 @@ namespace ChoiceSellSystemsWeb.Controllers
             }
             else
             {
-                UrunRepo.AdminIlk(Olustur);
+                if(Olustur.Adi==null || Olustur.Adi==" ")
+                {
+                    ViewBag.HataKullanici = "Kullanıcı Adı Girilmeli!";
+                    ViewBag.HataSifre = "Kullanıcı Şifresi Girin!";
+                    return View();
+                }
+                else if(Olustur.Sifre==null || Olustur.Sifre==" ")
+                {
+                    ViewBag.HataSifre = "Kullanıcı Şifresi Girilmeli!";
+                    ViewBag.HataKullanici = Olustur.Adi;
+                    return View();
+                }
+                else
+                {
+                    UrunRepo.AdminIlk(Olustur);
+                    return RedirectToAction("Admin");
+                }
+                
+            }
+        }
+        public ActionResult IndirimdekiUrunler()
+        {
+            if (Session["AdminID"] == null || Session["AdminID"].ToString() == "0")
+            {
                 return RedirectToAction("Admin");
+            }
+            else
+            {
+                ViewBag.Kategori = KategorizeEt.KatogorileriListele();
+                var Listele = UrunRepo.IndirimliUrunleriListele();
+                return View(Listele);
+            }
+        }
+        [HttpPost]
+        public ActionResult IndirimdekiUrunler(WMIndirimDegistir Degistir)
+        {
+            if (Session["AdminID"] == null || Session["AdminID"].ToString() == "0")
+            {
+                return RedirectToAction("Admin");
+            }
+            else
+            {
+                if (Degistir.Indirim == null)
+                {
+                    WMIndirimDegistir yeni = new WMIndirimDegistir { UrununID = Degistir.UrununID, Indirim = "0" };
+                    UrunRepo.IndirimDegistir(yeni);
+                    ViewBag.Kategori = KategorizeEt.KatogorileriListele();
+                    var Listele = UrunRepo.IndirimliUrunleriListele();
+                    return View(Listele);
+                }
+                else
+                {
+                    UrunRepo.IndirimDegistir(Degistir);
+                    ViewBag.Kategori = KategorizeEt.KatogorileriListele();
+                    var Listele = UrunRepo.IndirimliUrunleriListele();
+                    return View(Listele);
+                }
+                
+            }
+        }
+        public ActionResult IndirimsizUrunler()
+        {
+            if (Session["AdminID"] == null || Session["AdminID"].ToString() == "0")
+            {
+                return RedirectToAction("Admin");
+            }
+            else
+            {
+                ViewBag.Kategori = KategorizeEt.KatogorileriListele();
+                var Listele = UrunRepo.IndirimsizUrunleriListele();
+                return View(Listele);
+            }
+        }
+        [HttpPost]
+        public ActionResult IndirimsizUrunler(WMIndirimDegistir Degistir)
+        {
+            if (Degistir.Indirim == null)
+            {
+                WMIndirimDegistir yeni = new WMIndirimDegistir { UrununID = Degistir.UrununID, Indirim = "0" };
+                UrunRepo.IndirimDegistir(yeni);
+                ViewBag.Kategori = KategorizeEt.KatogorileriListele();
+                var Listele = UrunRepo.IndirimsizUrunleriListele();
+                return View(Listele);
+            }
+            else
+            {
+                UrunRepo.IndirimDegistir(Degistir);
+                ViewBag.Kategori = KategorizeEt.KatogorileriListele();
+                var Listele = UrunRepo.IndirimsizUrunleriListele();
+                return View(Listele);
+            }
+        }
+        public ActionResult UrunDuzenle(int ID)
+        {
+            if (Session["AdminID"] == null || Session["AdminID"].ToString() == "0")
+            {
+                return RedirectToAction("Admin");
+            }
+            else
+            {
+                var urun = UrunRepo.UrunSec(ID);
+                ViewBag.Kategori = KategorizeEt.KatogorileriListele();
+                return View(urun);
             }
         }
     }

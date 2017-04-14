@@ -78,7 +78,7 @@ namespace ChoiceSellSystemTest
                 urunekle.KategoriID = 1;
                 urunekle.UrunAciklama = "Royal Canin Maxi Junior Yavru Köpek Maması 15 KG + 21 Cm Kemik HEDİYELİ";
                 urunekle.UrunAdi = "Royal Canin";
-                urunekle.UrunCinsiID = 1;
+                urunekle.UruncinsiID = 1;
                 urunekle.UrunFiyati = "310,00";
                 urunekle.UrunKategoriID = 1;
 
@@ -96,13 +96,13 @@ namespace ChoiceSellSystemTest
             {
                 Urun urunekle = new Urun();
                 urunekle.Gramaj = "15KG";
-                urunekle.Image = "https://markamama.com.tr/Assets/photo/r/585090D2-05F2-4896-BA63-8E8AA1D07C63_b.png";
+                urunekle.Image = "~/images/Sample/SampleUrun.png";
                 urunekle.Indirim = "-%15";
                 urunekle.IndirimVarmi = true;
                 urunekle.KategoriID = 1;
                 urunekle.UrunAciklama = "Büyük ırk köpeklerin 2-15 aylık yavruları için özel olarak geliştirilen bu mama, yavru köpeklerin gelecekte daha sağlıklı ve enerjik olabilmeleri için en uygun içerikle hazırlanmaktadır. ";
                 urunekle.UrunAdi = "Royal Canin";
-                urunekle.UrunCinsiID = 1;
+                urunekle.UruncinsiID = 1;
                 urunekle.UrunFiyati = "263,50";
                 urunekle.UrunKategoriID = 1;
 
@@ -143,7 +143,7 @@ namespace ChoiceSellSystemTest
                 Console.WriteLine("\n Ürün Cinsi Listesi");
                 foreach (var item in d)
                 {
-                    Console.WriteLine("\r Ürün Cinsi ID: " + item.UrunCinsiID + " Ürün Cinsi Adı: " + item.Cinsi);
+                    Console.WriteLine("\r Ürün Cinsi ID: " + item.UruncinsiID + " Ürün Cinsi Adı: " + item.Cinsi);
                 }
                 Console.WriteLine("\n Ürün Cinsi Listesi Tamamlandı!");
                 Console.WriteLine("\n Ürün Listesi");
