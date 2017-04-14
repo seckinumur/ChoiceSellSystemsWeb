@@ -1,6 +1,6 @@
 ﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -43,6 +43,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -88,11 +94,128 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\metisMenu.min.css" />
+    <Content Include="Content\css\sb-admin-2.min.css" />
+    <Content Include="Content\datatables-plugins\dataTables.bootstrap.css" />
+    <Content Include="Content\datatables-plugins\dataTables.bootstrap.js" />
+    <Content Include="Content\datatables-plugins\dataTables.bootstrap.min.js" />
+    <Content Include="Content\datatables-plugins\index.html" />
+    <Content Include="Content\datatables-responsive\dataTables.responsive.css" />
+    <Content Include="Content\datatables-responsive\dataTables.responsive.js" />
+    <Content Include="Content\datatables\css\dataTables.bootstrap.css" />
+    <Content Include="Content\datatables\css\dataTables.bootstrap.min.css" />
+    <Content Include="Content\datatables\css\dataTables.bootstrap4.css" />
+    <Content Include="Content\datatables\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\datatables\css\dataTables.foundation.css" />
+    <Content Include="Content\datatables\css\dataTables.foundation.min.css" />
+    <Content Include="Content\datatables\css\dataTables.jqueryui.css" />
+    <Content Include="Content\datatables\css\dataTables.jqueryui.min.css" />
+    <Content Include="Content\datatables\css\dataTables.material.css" />
+    <Content Include="Content\datatables\css\dataTables.material.min.css" />
+    <Content Include="Content\datatables\css\dataTables.semanticui.css" />
+    <Content Include="Content\datatables\css\dataTables.semanticui.min.css" />
+    <Content Include="Content\datatables\css\dataTables.uikit.css" />
+    <Content Include="Content\datatables\css\dataTables.uikit.min.css" />
+    <Content Include="Content\datatables\css\jquery.dataTables.css" />
+    <Content Include="Content\datatables\css\jquery.dataTables.min.css" />
+    <Content Include="Content\datatables\css\jquery.dataTables_themeroller.css" />
+    <Content Include="Content\datatables\images\favicon.ico" />
+    <Content Include="Content\datatables\images\sort_asc.png" />
+    <Content Include="Content\datatables\images\sort_asc_disabled.png" />
+    <Content Include="Content\datatables\images\sort_both.png" />
+    <Content Include="Content\datatables\images\sort_desc.png" />
+    <Content Include="Content\datatables\images\sort_desc_disabled.png" />
+    <Content Include="Content\datatables\js\dataTables.bootstrap.js" />
+    <Content Include="Content\datatables\js\dataTables.bootstrap.min.js" />
+    <Content Include="Content\datatables\js\dataTables.bootstrap4.js" />
+    <Content Include="Content\datatables\js\dataTables.bootstrap4.min.js" />
+    <Content Include="Content\datatables\js\dataTables.foundation.js" />
+    <Content Include="Content\datatables\js\dataTables.foundation.min.js" />
+    <Content Include="Content\datatables\js\dataTables.jqueryui.js" />
+    <Content Include="Content\datatables\js\dataTables.jqueryui.min.js" />
+    <Content Include="Content\datatables\js\dataTables.material.js" />
+    <Content Include="Content\datatables\js\dataTables.material.min.js" />
+    <Content Include="Content\datatables\js\dataTables.semanticui.js" />
+    <Content Include="Content\datatables\js\dataTables.semanticui.min.js" />
+    <Content Include="Content\datatables\js\dataTables.uikit.js" />
+    <Content Include="Content\datatables\js\dataTables.uikit.min.js" />
+    <Content Include="Content\datatables\js\jquery.dataTables.js" />
+    <Content Include="Content\datatables\js\jquery.dataTables.min.js" />
+    <Content Include="Content\datatables\js\jquery.js" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\amazon.jpg" />
+    <Content Include="images\avatar.jpg" />
+    <Content Include="images\choice corporation2.png" />
+    <Content Include="images\favicon.png" />
+    <Content Include="images\favicon\apple-touch-icon-152x152.png" />
+    <Content Include="images\favicon\favicon-32x32.png" />
+    <Content Include="images\favicon\mstile-144x144.png" />
+    <Content Include="images\flag-icons\China.png" />
+    <Content Include="images\flag-icons\France.png" />
+    <Content Include="images\flag-icons\Germany.png" />
+    <Content Include="images\flag-icons\United-States.png" />
+    <Content Include="images\gallary\1.jpg" />
+    <Content Include="images\gallary\10.jpg" />
+    <Content Include="images\gallary\11.jpg" />
+    <Content Include="images\gallary\12.jpg" />
+    <Content Include="images\gallary\13.jpg" />
+    <Content Include="images\gallary\14.jpg" />
+    <Content Include="images\gallary\15.jpg" />
+    <Content Include="images\gallary\16.jpg" />
+    <Content Include="images\gallary\17.jpg" />
+    <Content Include="images\gallary\18.jpg" />
+    <Content Include="images\gallary\19.jpg" />
+    <Content Include="images\gallary\2.jpg" />
+    <Content Include="images\gallary\20.jpg" />
+    <Content Include="images\gallary\25.jpg" />
+    <Content Include="images\gallary\26.jpg" />
+    <Content Include="images\gallary\3.jpg" />
+    <Content Include="images\gallary\30.jpg" />
+    <Content Include="images\gallary\33.jpg" />
+    <Content Include="images\gallary\4.jpg" />
+    <Content Include="images\gallary\5.jpg" />
+    <Content Include="images\gallary\6.jpg" />
+    <Content Include="images\gallary\7.jpg" />
+    <Content Include="images\gallary\8.jpg" />
+    <Content Include="images\gallary\9.jpg" />
+    <Content Include="images\generic-logo.png" />
+    <Content Include="images\img2.jpg" />
+    <Content Include="images\img3.jpg" />
+    <Content Include="images\img4.jpg" />
+    <Content Include="images\img5.jpg" />
+    <Content Include="images\img6.jpg" />
+    <Content Include="images\img7.jpg" />
+    <Content Include="images\img8.jpg" />
+    <Content Include="images\login-logo.png" />
+    <Content Include="images\map-marker.png" />
+    <Content Include="images\materialize-logo.png" />
+    <Content Include="images\office.jpg" />
+    <Content Include="images\sample-1.jpg" />
+    <Content Include="images\Sample\SampleUrun.png" />
+    <Content Include="images\signature-scan.png" />
+    <Content Include="images\style_typography_roboto.png" />
+    <Content Include="images\user-bg-2.html" />
+    <Content Include="images\user-bg.jpg" />
+    <Content Include="images\user-profile-bg.jpg" />
+    <Content Include="images\yuna.html" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\metisMenu.min.js" />
+    <Content Include="Scripts\sb-admin-2.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -101,6 +224,20 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
+    <Content Include="Views\Admin\Admin.cshtml">
+      <BrowseToURL>~/Admin/Admin</BrowseToURL>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Admin\AdminPage.cshtml" />
+    <Content Include="Views\Admin\TumUrunler.cshtml" />
+    <Content Include="Content\datatables-responsive\dataTables.responsive.scss" />
+    <Content Include="Content\datatables\images\Sorting icons.psd" />
+    <Content Include="Views\Shared\_Welcome.cshtml" />
+    <Content Include="Views\Admin\Welcome.cshtml" />
+    <Content Include="Views\Admin\UrunEkleIlk.cshtml" />
+    <Content Include="Views\Admin\HizliKurulum.cshtml" />
+    <Content Include="Views\Admin\AdminYeni.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -110,8 +247,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
+    <Folder Include="Views\Home\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChoiceSellSystems.Entity\ChoiceSellSystems.Entity.csproj">
+      <Project>{6417fb40-aa10-4996-831b-a8a3532574f3}</Project>
+      <Name>ChoiceSellSystems.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChoiceSellSysytems.DAL\ChoiceSellSysytems.DAL.csproj">
+      <Project>{295b8a21-f7eb-44c9-97c6-3078d88bb085}</Project>
+      <Name>ChoiceSellSysytems.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -142,8 +288,8 @@
     <PropertyGroup>
       <ErrorText>Bu proje bu bilgisayarda olmayan NuGet paketlerine başvuru yapıyor. Bunları indirmek için NuGet Paket Geri Yükleme'yi kullanın. Daha fazla bilgi için, bkz. http://go.microsoft.com/fwlink/?LinkID=322105. Eksik dosya: {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
