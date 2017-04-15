@@ -49,11 +49,11 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
-                            <a href="#"><i class="fa fa-user fa-fw"></i> Profil</a>
+                            <a href="~/Uyari/Uyari"><i class="fa fa-user fa-fw"></i> Profil</a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Çıkış</a>
+                            <a href="~/Uyari/Uyari"><i class="fa fa-sign-out fa-fw"></i> Çıkış</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -70,23 +70,23 @@
                             <a href="~/Admin/AdminPage"><i class="fa fa-dashboard fa-fw "></i> Ana Ekran</a>
                         </li>
                         <li>
-                            <a href="~/Admin/KategoriEkle"><i class="fa fa-tasks"></i> Kategori Düzenle</a>
+                            <a href="~/Admin/KategoriEkle"><i class="fa fa-th-list"></i> Kategori Düzenle</a>
                         </li>
                         <li>
-                            <a href="index.html"><i class="fa fa-tasks"></i> Alt Kategori Düzenle</a>
+                            <a href="~/Uyari/Uyari"><i class="fa fa-indent"></i> Alt Kategori Düzenle</a>
                         </li>
                         <li>
-                            <a href="index.html"><i class="fa fa-tasks"></i> Ürün Cinsi Düzenle</a>
+                            <a href="~/Uyari/Uyari"><i class="fa fa-list"></i> Ürün Cinsi Düzenle</a>
                         </li>
                         <li>
-                            <a href="index.html"><i class="fa fa-tasks"></i> Ürün ekle</a>
+                            <a href="~/Uyari/Uyari"><i class="fa fa-shopping-cart"></i> Ürün ekle</a>
                         </li>
 
                         @{
                             foreach (var item in (List<ChoiceSellSystems.Entity.ViewModels.WMKategoriler>)ViewBag.Kategori)
                             {
                                 <li>
-                                    <a href="~/Admin/KategoriyeGoreListele/@item.KategoriID"><i class="fa fa-shopping-cart "></i> @item.KategoriAdi</a>
+                                    <a href="~/Admin/KategoriyeGoreListele/@item.KategoriID"><i class="fa fa-database"></i> @item.KategoriAdi</a>
                                 </li>
                             }
                         }

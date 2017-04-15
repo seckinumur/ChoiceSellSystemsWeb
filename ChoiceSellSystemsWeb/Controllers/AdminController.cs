@@ -307,9 +307,13 @@ namespace ChoiceSellSystemsWeb.Controllers
                 {
                     UrunRepo.KategoriDüzenle(Al);
                 }
-                else
+                else if(Al.Gorev== "Sil")
                 {
                     UrunRepo.KategoriSil(Al);
+                }
+                else if(Al.Gorev== "Ekle")
+                {
+                    UrunRepo.KategoriEkle(Al);
                 }
                 var gonder = KategorizeEt.KategorilerinHepsi();
                 ViewBag.Kategori = KategorizeEt.KatogorileriListele();

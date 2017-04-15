@@ -147,6 +147,56 @@
             </div>
         </div>
 
+        <div class="modal fade" id="Ekle" tabindex="-1" role="dialog" aria-labelledby="EkleLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="EkleLabel">Kategori Ekle</h4>
+                    </div>
+                    <form role="form" method="post">
+                        <div class="modal-body">
+                            <input type="hidden" name="Gorev" value="Ekle" />
+                            <div class="form-group">
+                                <label>Yeni Bir Kategori Eklenecek Devam Edilsin mi?</label>
+                                <div class="form-group">
+                                    <label>Kategori Adı</label>
+                                    <input class="form-control" name="KatAdi">
+                                </div>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        ÇOMAR AI V.1.2 (ALPHA)
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>
+                                            Merhaba! Ben SiteRobotu Çomar. Bu Menüden Yeni Bir Kategori Ekleyebilirsiniz.
+                                            Yeni bir Kategori Ürünlerin ve Alt Kategorilerinin Tek Türde Toplanacağı Ana
+                                            Başlıktır.<strong>Yeni Bir Kategori Temel Başlıktır Bu Başlığın Ürünlerin Ve
+                                            Alt Kategorilerin Mantıklı Olabilmesi İçin Doğru Bir İsim Seçilmesi Çok
+                                            Önemlidir.</strong>
+                                        </p>
+                                    </div>
+                                    <div class="panel-footer">
+                                        Hazırsanız Şimdi Yeni Bir Kategori Ekleyelim...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                            <button type="submit" class="btn btn-warning">Ekle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div >
+                <button data-toggle="modal" data-target="#Ekle" class="btn btn-info col-lg-12">Kategori Ekle</button>
+                <p class="text-warning"><strong>Bir Kategori Eklemek İçin Kategori Ekle Butonuna Basın</strong></p>
+            </div>
+        </div>
     </div>
 </div>
 <script type="text/javascript">

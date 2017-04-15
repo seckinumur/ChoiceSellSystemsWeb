@@ -328,5 +328,20 @@ namespace ChoiceSellSysytems.DAL.Repository
                 db.SaveChanges();
             }
         }
+        public static void KategoriEkle(KategoriIslemleri al)
+        {
+            using (DataDb db = new DataDb())
+            {
+                bool varmı = db.Kategori.Any(p => p.KategoriAdi == al.KatAdi);
+                if (varmı == false)
+                {
+                    Kategori ekle = new Kategori();
+                    ekle.KategoriAdi = al.KatAdi;
+
+                    db.Kategori.Add(ekle);
+                    db.SaveChanges();
+                }
+            }
+        }
     }
 }
