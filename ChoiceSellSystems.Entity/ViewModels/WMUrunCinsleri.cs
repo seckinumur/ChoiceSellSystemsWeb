@@ -9,5 +9,6 @@ namespace ChoiceSellSystems.Entity.ViewModels
    public class WMUrunCinsleri
     {
         public string Cinsi { get; set; }
+        public int UrunKategoriID { get; set; }
     }
 }

@@ -14,7 +14,22 @@ namespace ChoiceSellSysytems.DAL.Repository
         {
             using (DataDb db = new DataDb())
             {
-                var Kategorisec = db.Kategori.Select(p => new WMKategoriler { KategoriAdi = p.KategoriAdi }).ToList();
+                var Kategorisec = db.Kategori.Select(p => new WMKategoriler { KategoriAdi = p.KategoriAdi, KategoriID= p.KategoriID }).ToList();
+                return Kategorisec;
+            }
+        }
+        public static List<WMKategoriler> KategorilerinHepsi()
+        {
+            using (DataDb db = new DataDb())
+            {
+                
+                var Kategorisec = db.Kategori.Select(p =>  new WMKategoriler {  KategoriID = p.KategoriID, KategoriAdi=p.KategoriAdi,UrunVarmi=false }).ToList();
+                foreach (var item in Kategorisec)
+                {
+                    bool varmiymis = db.Urun.Any(p => p.KategoriID == item.KategoriID);
+                    item.UrunVarmi = varmiymis;
+                }
+                
                 return Kategorisec;
             }
         }

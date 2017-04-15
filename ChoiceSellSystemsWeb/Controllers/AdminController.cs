@@ -252,5 +252,69 @@ namespace ChoiceSellSystemsWeb.Controllers
                 return View(urun);
             }
         }
+        public ActionResult KategoriyeGoreListele(int ID)
+        {
+            if (Session["AdminID"] == null || Session["AdminID"].ToString() == "0")
+            {
+                return RedirectToAction("Admin");
+            }
+            else
+            {
+                var urunKategori = UrunRepo.UrunKatogoriBul(ID);
+                ViewBag.KategoriAdi = UrunRepo.KatogoriBul(ID);
+                ViewBag.Kategori = KategorizeEt.KatogorileriListele();
+                return View(urunKategori);
+            }
+        }
+        public ActionResult KategoriSecimineGoreListele(int ID)
+        {
+            if (Session["AdminID"] == null || Session["AdminID"].ToString() == "0")
+            {
+                return RedirectToAction("Admin");
+            }
+            else
+            {
+                var urun = UrunRepo.KategoriyeGoreUrunlistele(ID);
+                ViewBag.KategoriAdi = UrunRepo.KatogoriBul(ID);
+                ViewBag.UrunkategoriIsmi = UrunRepo.UrunKatogoriBulIsmi(ID);
+                ViewBag.Kategori = KategorizeEt.KatogorileriListele();
+                return View(urun);
+            }
+        }
+        public ActionResult KategoriEkle()
+        {
+            if (Session["AdminID"] == null || Session["AdminID"].ToString() == "0")
+            {
+                return RedirectToAction("Admin");
+            }
+            else
+            {
+                var gonder = KategorizeEt.KategorilerinHepsi();
+                ViewBag.Kategori = KategorizeEt.KatogorileriListele();
+                return View(gonder);
+            }
+        }
+        [HttpPost]
+        public ActionResult KategoriEkle(KategoriIslemleri Al)
+        {
+            if (Session["AdminID"] == null || Session["AdminID"].ToString() == "0")
+            {
+                return RedirectToAction("Admin");
+            }
+            else
+            {
+                if(Al.Gorev== "Degistir")
+                {
+                    UrunRepo.KategoriDüzenle(Al);
+                }
+                else
+                {
+                    UrunRepo.KategoriSil(Al);
+                }
+                var gonder = KategorizeEt.KategorilerinHepsi();
+                ViewBag.Kategori = KategorizeEt.KatogorileriListele();
+                return View(gonder);
+            }
+        }
     }
 }

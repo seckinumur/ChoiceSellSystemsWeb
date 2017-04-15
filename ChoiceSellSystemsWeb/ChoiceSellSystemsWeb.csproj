@@ -244,6 +244,9 @@
     <Content Include="Views\Admin\IndirimdekiUrunler.cshtml" />
     <Content Include="Views\Admin\IndirimsizUrunler.cshtml" />
     <Content Include="Views\Admin\UrunDuzenle.cshtml" />
+    <Content Include="Views\Admin\KategoriyeGoreListele.cshtml" />
+    <Content Include="Views\Admin\KategoriSecimineGoreListele.cshtml" />
+    <Content Include="Views\Admin\KategoriEkle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -48,24 +48,28 @@ namespace ChoiceSellSystemTest
 
                 UrunKategori uk1 = new UrunKategori();
                 uk1.UrunKategoriAdı = "Köpek Maması";
+                uk1.KategoriID = 1;
 
                 db.UrunKategori.Add(uk1);
                 db.SaveChanges();
 
                 UrunKategori uk2 = new UrunKategori();
                 uk2.UrunKategoriAdı = "Kedi Maması";
+                uk2.KategoriID = 2;
 
                 db.UrunKategori.Add(uk2);
                 db.SaveChanges();
 
                 Uruncinsi uc1 = new Uruncinsi();
                 uc1.Cinsi = "Yavru Köpek Maması (3 ay - 12 ay arası)";
+                uc1.UrunKategoriID = 1;
 
                 db.Uruncinsi.Add(uc1);
                 db.SaveChanges();
 
                 Uruncinsi uc2 = new Uruncinsi();
                 uc2.Cinsi = "Yavru Kedi Mamaları (0-12 Ay)";
+                uc2.UrunKategoriID = 2;
 
                 db.Uruncinsi.Add(uc2);
                 db.SaveChanges();

@@ -11,5 +11,6 @@ namespace ChoiceSellSystems.Entity.Models
         public int UruncinsiID { get; set; }
         public string Cinsi { get; set; }
         public bool Silindimi { get; set; }
+        public int UrunKategoriID { get; set; }
     }
 }

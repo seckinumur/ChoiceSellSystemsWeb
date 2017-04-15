@@ -140,24 +140,28 @@ namespace ChoiceSellSysytems.DAL.Repository
 
                 UrunKategori uk1 = new UrunKategori();
                 uk1.UrunKategoriAdı = "Köpek Maması";
+                uk1.KategoriID = 1;
 
                 db.UrunKategori.Add(uk1);
                 db.SaveChanges();
 
                 UrunKategori uk2 = new UrunKategori();
                 uk2.UrunKategoriAdı = "Kedi Maması";
+                uk2.KategoriID = 2;
 
                 db.UrunKategori.Add(uk2);
                 db.SaveChanges();
 
                 Uruncinsi uc1 = new Uruncinsi();
                 uc1.Cinsi = "Yavru Köpek Maması (3 ay - 12 ay arası)";
+                uc1.UrunKategoriID = 1;
 
                 db.Uruncinsi.Add(uc1);
                 db.SaveChanges();
 
                 Uruncinsi uc2 = new Uruncinsi();
                 uc2.Cinsi = "Yavru Kedi Mamaları (0-12 Ay)";
+                uc2.UrunKategoriID = 2;
 
                 db.Uruncinsi.Add(uc2);
                 db.SaveChanges();
@@ -256,6 +260,72 @@ namespace ChoiceSellSysytems.DAL.Repository
 
                 }).FirstOrDefault();
                 return Secim;
+            }
+        }
+        public static List<WMUrunKategorileri> UrunKatogoriBul(int ID)
+        {
+            using (DataDb db = new DataDb())
+            {
+                var bul = db.UrunKategori.Where(p => p.KategoriID == ID).Select(a=> new WMUrunKategorileri {
+                UrunKategoriAdı=a.UrunKategoriAdı,UrunKategoriID = a.UrunKategoriID}).ToList();
+                return bul;
+            }
+        }
+        public static string KatogoriBul(int ID)
+        {
+            using (DataDb db = new DataDb())
+            {
+                var bul = db.Kategori.Where(p => p.KategoriID == ID).FirstOrDefault();
+                return bul.KategoriAdi;
+            }
+        }
+        public static List<WMUrun> KategoriyeGoreUrunlistele(int id)
+        {
+            using (DataDb db = new DataDb())
+            {
+                var Liste = db.Urun.Where(p => p.Silindimi == false && p.UrunKategoriID==id).Select(a => new WMUrun
+                {
+                    UrunID = a.UrunID,
+                    UrunAdi = a.UrunAdi,
+                    UrunFiyati = a.UrunFiyati,
+                    Indirim = a.Indirim,
+                    IndirimVarmi = a.IndirimVarmi,
+                    Gramaj = a.Gramaj,
+                    UrunAciklama = a.UrunAciklama,
+                    Kategorisi = a.Kategori.KategoriAdi,
+                    UrunKategorisi = a.UrunKategori.UrunKategoriAdı,
+                    UrunCinsi = a.Uruncinsi.Cinsi,
+                    Image = a.Image
+
+                }).ToList();
+
+                return Liste;
+            }
+        }
+        public static string UrunKatogoriBulIsmi(int ID)
+        {
+            using (DataDb db = new DataDb())
+            {
+                var bul = db.UrunKategori.Where(p => p.KategoriID == ID).FirstOrDefault();
+                return bul.UrunKategoriAdı;
+            }
+        }
+        public static void KategoriDüzenle(KategoriIslemleri al)
+        {
+            using (DataDb db = new DataDb())
+            {
+                var bul = db.Kategori.Where(p => p.KategoriID == al.KategoriID).FirstOrDefault();
+                bul.KategoriAdi = al.KatAdi;
+                db.SaveChanges();
+            }
+        }
+        public static void KategoriSil(KategoriIslemleri al)
+        {
+            using (DataDb db = new DataDb())
+            {
+                var bul = db.Kategori.Where(p => p.KategoriID == al.KategoriID).FirstOrDefault();
+                bul.Silindimi = true;
+                db.SaveChanges();
             }
         }
     }

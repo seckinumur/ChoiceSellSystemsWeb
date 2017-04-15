@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ChoiceSellSystems.Entity.ViewModels
 {
-   public class WMUrunKategorileri
+   public class KategoriIslemleri
     {
-        public int UrunKategoriID { get; set; }
-        public string UrunKategoriAdı { get; set; }
         public int KategoriID { get; set; }
+        public string Gorev { get; set; }
+        public string KatAdi { get; set; }
     }
 }
