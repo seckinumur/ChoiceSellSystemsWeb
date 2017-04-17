@@ -199,6 +199,8 @@
     <Content Include="Views\Admin\KategoriSecimineGoreListele.cshtml" />
     <Content Include="Views\Admin\KategoriEkle.cshtml" />
     <Content Include="Views\Uyari\Uyari.cshtml" />
+    <Content Include="Views\Admin\AltKategoriEkle.cshtml" />
+    <Content Include="Views\Admin\UrunCinsiEkle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

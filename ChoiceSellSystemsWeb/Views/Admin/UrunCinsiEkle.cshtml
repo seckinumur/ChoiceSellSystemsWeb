@@ -1,0 +1,220 @@
+﻿@model List<ChoiceSellSystems.Entity.ViewModels.WMUrunCinsleri>
+@{
+    ViewBag.Title = "UrunCinsiEkle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="page-wrapper">
+    <div class="row">
+
+        <div class="col-lg-12">
+            <h1 class="page-header">Ürün Cinsi Düzenle <button class="btn btn-success" data-toggle="modal" data-target="#Comar"><i class="fa fa-paw"></i> Çomar Yardım</button> </h1>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Tüm Ürün Cinsleri Gösteriliyor
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>Ürün Cinsleri</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Cinsi</td>
+                                        <td>
+                                            <button data-toggle="modal" data-target="#myModal" class="btn btn-warning" onclick="Islem(@item.UrunCinsiID)" disabled="@(item.UrunVarmi == true ? true : false)">Kategoriyi Sil</button>
+                                            <input type="hidden" id="@item.UrunCinsiID" value="@item.Cinsi" />
+                                            <button data-toggle="modal" data-target="#Duzenle" class="btn btn-info" onclick="Islem2(@item.UrunCinsiID)">Alt Kategoriyi Düzenle</button>
+                                        </td>
+                                    </tr>
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="Comar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">ÇOMAR AI V.1.2 (ALPHA)</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                ÇOMAR YARDIM
+                            </div>
+                            <div class="panel-body">
+                                <p>
+                                    Merhaba! Ben SiteRobotu Çomar. Bu Sayfada Ürünlerinizin Ürün Cinsini Düzenleyebilirsiniz.
+                                    <strong>
+                                     Ürün Cinsi Bir Alt Kategori İçersinde Olan Ürünlerin Nicelik Bakımından Ayrılarak
+                                    Sınıflandırılması İçin Gerekli Olan En Alt Kategoridir. Yani Örnek Olarak "Köpek" Bir 
+                                    Kategoridir. "Köpek Maması" Bir Alt Kategoridir. "Yavru Köpek maması" ise Ürünün Cinsidir.
+                                    Köpek Kategorisi İçersinde Bulunan Ve Mamalar Kategorisindeki Yavru köpek Maması ürünün cinsidir.
+                                    Her üründe zorunlu Olmayan Ama aynı alt Kategoride Olan Ürünleri Sınıflandırmak İçin Kullanılan
+                                    En Alt Kategoridir. Sistem Bu Kategorinin Altında Başka Bir Kategoriyi Desteklemez. Bir Ürün
+                                    Eklerken Alt Kategoride Sınıflandırma Yapmak İçin Kullanılan Son Kategoridir.
+                                    </strong> Ürün Cinsi İçerlerinde Ürün Varsa Silinemezler. Eğer Sil Butonuna
+                                    Basmanıza İzin Yoksa İçersinde Hala Ürün Olan Bir Ürün Cinsini Silmek İstediğinizdendir.
+                                </p>
+                            </div>
+                            <div class="panel-footer">
+                                Haydi Hazırsanız Şimdi Bir Ürün Cinsi ekleyelim...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">Alt Kategori Silme</h4>
+                    </div>
+                    <form role="form" method="post">
+                        <div class="modal-body">
+                            <input type="hidden" name="UrunCinsiID" id="SilmeAl" />
+                            <input type="hidden" name="Gorev" value="Sil" />
+                            <div class="form-group">
+                                <label>Bu Ürün Cinsi Silenecek Devam Edilsin mi?</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                            <button type="submit" class="btn btn-warning">SİL</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="Duzenle" tabindex="-1" role="dialog" aria-labelledby="DuzenleLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="DuzenleLabel">Ürün Cinsi Düzenle</h4>
+                    </div>
+                    <form role="form" method="post">
+                        <div class="modal-body">
+                            <input type="hidden" name="UrunCinsiID" id="idal" />
+                            <input type="hidden" name="Gorev" value="Degistir" />
+                            <div class="form-group">
+                                <label>Bu Ürün Cinsi Güncellenecek Devam Edilsin mi?</label>
+                                <div class="form-group">
+                                    <label>Ürün Cinsi Adı</label>
+                                    <input class="form-control" name="KatAdi" id="BuarayaYaz">
+                                </div>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        ÇOMAR AI V.1.2 (ALPHA)
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>
+                                            Merhaba! Ben SiteRobotu Çomar. Şimdi Seçtiğiniz Ürün Cinsinin ismini Görüyor Olmalısınız.
+                                            Buradan Ürün Cinsinin İsmini Yeniden Adlandırabilirsiniz. <strong>Ürün Cinsi Alt Kategori
+                                            ile Mantıklı Olmalıdır. "Köpek Maması" Alt Kategori İçersinde "Yavru Kedi Maması" İsimli
+                                            Ürün Cinsi Mantıklı bir İlişki Değildir. !Her Ürünün Ürün Cinsi Olmak Zorunda Değildir.
+                                            "Kedi" Kategorisindeki "Suluklar" Alt Kategorisinde "Kedi Suluğu" Adlı Bir Ürün Cinsi
+                                            Mantıklı Değildir.
+                                            </strong>
+                                        </p>
+                                    </div>
+                                    <div class="panel-footer">
+                                        Hazırsanız Şimdi Ürün Cinsini Güncelleyelim...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                            <button type="submit" class="btn btn-warning">Güncelle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="Ekle" tabindex="-1" role="dialog" aria-labelledby="EkleLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="EkleLabel">Ürün Cinsi Ekle</h4>
+                    </div>
+                    <form role="form" method="post">
+                        <div class="modal-body">
+                            <input type="hidden" name="Gorev" value="Ekle" />
+                            <div class="form-group">
+                                <label>Yeni Bir Ürün Cnsi Eklenecek Devam Edilsin mi?</label>
+                                <div class="form-group">
+                                    <label>Kategori Adı</label>
+                                    <input class="form-control" name="KatAdi">
+                                </div>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        ÇOMAR AI V.1.2 (ALPHA)
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>
+                                            Merhaba! Ben SiteRobotu Çomar. Bu Menüden Yeni Bir Ürün Cinsi Ekleyebilirsiniz.<strong>
+                                            Ürün Cinsi Alt Kategori ile Mantıklı Olmalıdır. "Köpek Maması" Alt Kategori İçersinde 
+                                            "Yavru Kedi Maması" İsimli Ürün Cinsi Mantıklı bir İlişki Değildir. !Her Ürünün Ürün Cinsi 
+                                            Olmak Zorunda Değildir. "Kedi" Kategorisindeki "Suluklar" Alt Kategorisinde "Kedi Suluğu" 
+                                            Adlı Bir Ürün Cinsi Mantıklı Değildir.</strong>
+                                        </p>
+                                    </div>
+                                    <div class="panel-footer">
+                                        Hazırsanız Şimdi Yeni Bir Ürün Cinsi Ekleyelim...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                            <button type="submit" class="btn btn-warning">Ekle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div>
+                <button data-toggle="modal" data-target="#Ekle" class="btn btn-info col-lg-12">Ürün Cinsi Ekle</button>
+                <p class="text-warning"><strong>Bir Ürün Cinsi Eklemek İçin Ürün Cinsi Ekle Butonuna Basın</strong></p>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function Islem(al)
+    {
+        document.getElementById("SilmeAl").value = al;
+    }
+    function Islem2(al2) {
+        var a = document.getElementById(al2).value;
+        document.getElementById("idal").value = al2;
+        document.getElementById("BuarayaYaz").value = a;
+    }
+</script>

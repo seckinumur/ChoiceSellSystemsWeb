@@ -76,7 +76,7 @@ namespace ChoiceSellSystemTest
 
                 Urun urunekle = new Urun();
                 urunekle.Gramaj = "15KG";
-                urunekle.Image = "~/images/Sample/SampleUrun.png";
+                urunekle.Image = "/images/Sample/SampleUrun.png";
                 urunekle.Indirim = "263,50";
                 urunekle.IndirimVarmi = true;
                 urunekle.KategoriID = 1;
@@ -100,7 +100,7 @@ namespace ChoiceSellSystemTest
             {
                 Urun urunekle = new Urun();
                 urunekle.Gramaj = "15KG";
-                urunekle.Image = "~/images/Sample/SampleUrun.png";
+                urunekle.Image = "/images/Sample/SampleUrun.png";
                 urunekle.Indirim = "-%15";
                 urunekle.IndirimVarmi = true;
                 urunekle.KategoriID = 1;

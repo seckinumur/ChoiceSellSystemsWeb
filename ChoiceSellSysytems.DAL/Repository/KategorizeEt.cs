@@ -33,5 +33,35 @@ namespace ChoiceSellSysytems.DAL.Repository
                 return Kategorisec;
             }
         }
+        public static List<WMUrunKategorileri> UrunKategorilerinHepsi()
+        {
+            using (DataDb db = new DataDb())
+            {
+
+                var Kategorisec = db.UrunKategori.Where(p => p.Silindimi == false).Select(p => new WMUrunKategorileri { UrunKategoriID = p.UrunKategoriID, UrunKategoriAdı = p.UrunKategoriAdı, UrunVarmi = false }).ToList();
+                foreach (var item in Kategorisec)
+                {
+                    bool varmiymis = db.Urun.Any(p => p.UrunKategoriID == item.UrunKategoriID);
+                    item.UrunVarmi = varmiymis;
+                }
+
+                return Kategorisec;
+            }
+        }
+        public static List<WMUrunCinsleri> UrunCinslerininHepsi()
+        {
+            using (DataDb db = new DataDb())
+            {
+
+                var Kategorisec = db.Uruncinsi.Where(p => p.Silindimi == false).Select(p => new WMUrunCinsleri { UrunCinsiID = p.UruncinsiID, Cinsi = p.Cinsi, UrunVarmi = false }).ToList();
+                foreach (var item in Kategorisec)
+                {
+                    bool varmiymis = db.Urun.Any(p => p.UruncinsiID == item.UrunCinsiID);
+                    item.UrunVarmi = varmiymis;
+                }
+
+                return Kategorisec;
+            }
+        }
     }
 }

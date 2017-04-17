@@ -320,5 +320,83 @@ namespace ChoiceSellSystemsWeb.Controllers
                 return View(gonder);
             }
         }
+        public ActionResult AltKategoriEkle()
+        {
+            if (Session["AdminID"] == null || Session["AdminID"].ToString() == "0")
+            {
+                return RedirectToAction("Admin");
+            }
+            else
+            {
+                var gonder = KategorizeEt.UrunKategorilerinHepsi();
+                ViewBag.Kategori = KategorizeEt.KatogorileriListele();
+                return View(gonder);
+            }
+        }
+        [HttpPost]
+        public ActionResult AltKategoriEkle(UrunKategoriIslemleri Al)
+        {
+            if (Session["AdminID"] == null || Session["AdminID"].ToString() == "0")
+            {
+                return RedirectToAction("Admin");
+            }
+            else
+            {
+                if (Al.Gorev == "Degistir")
+                {
+                    UrunRepo.UrunKategoriDüzenle(Al);
+                }
+                else if (Al.Gorev == "Sil")
+                {
+                    UrunRepo.UrunKategoriSil(Al);
+                }
+                else if (Al.Gorev == "Ekle")
+                {
+                    UrunRepo.UrunKategoriEkle(Al);
+                }
+                var gonder = KategorizeEt.UrunKategorilerinHepsi();
+                ViewBag.Kategori = KategorizeEt.KatogorileriListele();
+                return View(gonder);
+            }
+        }
+        public ActionResult UrunCinsiEkle()
+        {
+            if (Session["AdminID"] == null || Session["AdminID"].ToString() == "0")
+            {
+                return RedirectToAction("Admin");
+            }
+            else
+            {
+                var gonder = KategorizeEt.UrunCinslerininHepsi();
+                ViewBag.Kategori = KategorizeEt.KatogorileriListele();
+                return View(gonder);
+            }
+        }
+        [HttpPost]
+        public ActionResult UrunCinsiEkle(UrunCinsiIslemleri Al)
+        {
+            if (Session["AdminID"] == null || Session["AdminID"].ToString() == "0")
+            {
+                return RedirectToAction("Admin");
+            }
+            else
+            {
+                if (Al.Gorev == "Degistir")
+                {
+                    UrunRepo.UrunCinsiDüzenle(Al);
+                }
+                else if (Al.Gorev == "Sil")
+                {
+                    UrunRepo.UrunCinsiSil(Al);
+                }
+                else if (Al.Gorev == "Ekle")
+                {
+                    UrunRepo.UrunCinsiEkle(Al);
+                }
+                var gonder = KategorizeEt.UrunCinslerininHepsi();
+                ViewBag.Kategori = KategorizeEt.KatogorileriListele();
+                return View(gonder);
+            }
+        }
     }
 }

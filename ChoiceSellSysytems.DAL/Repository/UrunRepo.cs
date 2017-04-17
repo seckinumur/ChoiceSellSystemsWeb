@@ -168,7 +168,7 @@ namespace ChoiceSellSysytems.DAL.Repository
 
                 Urun urunekle = new Urun();
                 urunekle.Gramaj = "15KG";
-                urunekle.Image = "~/images/Sample/SampleUrun.png";
+                urunekle.Image = "/images/Sample/SampleUrun.png";
                 urunekle.Indirim = "263,50";
                 urunekle.IndirimVarmi = true;
                 urunekle.KategoriID = 1;
@@ -310,7 +310,7 @@ namespace ChoiceSellSysytems.DAL.Repository
                 return bul.UrunKategoriAdı;
             }
         }
-        public static void KategoriDüzenle(KategoriIslemleri al)
+        public static void KategoriDüzenle(KategoriIslemleri al) //Kategori İşlemleri Başlangıcı
         {
             using (DataDb db = new DataDb())
             {
@@ -339,6 +339,72 @@ namespace ChoiceSellSysytems.DAL.Repository
                     ekle.KategoriAdi = al.KatAdi;
 
                     db.Kategori.Add(ekle);
+                    db.SaveChanges();
+                }
+            }
+        }
+        public static void UrunKategoriDüzenle(UrunKategoriIslemleri al) //Urun Kategori İşlemleri Başlangıcı
+        {
+            using (DataDb db = new DataDb())
+            {
+                var bul = db.UrunKategori.Where(p => p.UrunKategoriID == al.UrunKategoriID).FirstOrDefault();
+                bul.UrunKategoriAdı = al.KatAdi;
+                db.SaveChanges();
+            }
+        }
+        public static void UrunKategoriSil(UrunKategoriIslemleri al)
+        {
+            using (DataDb db = new DataDb())
+            {
+                var bul = db.UrunKategori.Where(p => p.UrunKategoriID == al.UrunKategoriID).FirstOrDefault();
+                bul.Silindimi = true;
+                db.SaveChanges();
+            }
+        }
+        public static void UrunKategoriEkle(UrunKategoriIslemleri al)
+        {
+            using (DataDb db = new DataDb())
+            {
+                bool varmı = db.UrunKategori.Any(p => p.UrunKategoriAdı == al.KatAdi);
+                if (varmı == false)
+                {
+                    UrunKategori ekle = new UrunKategori();
+                    ekle.UrunKategoriAdı = al.KatAdi;
+
+                    db.UrunKategori.Add(ekle);
+                    db.SaveChanges();
+                }
+            }
+        }
+        public static void UrunCinsiDüzenle(UrunCinsiIslemleri al) //Urun Cinsi İşlemleri Başlangıcı
+        {
+            using (DataDb db = new DataDb())
+            {
+                var bul = db.Uruncinsi.Where(p => p.UruncinsiID == al.UrunCinsiID).FirstOrDefault();
+                bul.Cinsi = al.KatAdi;
+                db.SaveChanges();
+            }
+        }
+        public static void UrunCinsiSil(UrunCinsiIslemleri al)
+        {
+            using (DataDb db = new DataDb())
+            {
+                var bul = db.Uruncinsi.Where(p => p.UruncinsiID == al.UrunCinsiID).FirstOrDefault();
+                bul.Silindimi = true;
+                db.SaveChanges();
+            }
+        }
+        public static void UrunCinsiEkle(UrunCinsiIslemleri al)
+        {
+            using (DataDb db = new DataDb())
+            {
+                bool varmı = db.Uruncinsi.Any(p => p.Cinsi == al.KatAdi);
+                if (varmı == false)
+                {
+                    Uruncinsi ekle = new Uruncinsi();
+                    ekle.Cinsi = al.KatAdi;
+
+                    db.Uruncinsi.Add(ekle);
                     db.SaveChanges();
                 }
             }
