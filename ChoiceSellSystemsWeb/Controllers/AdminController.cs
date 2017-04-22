@@ -424,6 +424,7 @@ namespace ChoiceSellSystemsWeb.Controllers
                 ViewBag.UrunCinsi = KategorizeEt.UrunCinslerininHepsi();
                 ViewBag.UrunKategori = KategorizeEt.UrunKategorilerinHepsi();
                 ViewBag.Kategori = KategorizeEt.KatogorileriListele();
+                ViewBag.MarkaVer = KategorizeEt.Markalar();
                 var Kategorigonder = KategorizeEt.KatogorileriListele();
                 return View(Kategorigonder);
             }
@@ -439,7 +440,7 @@ namespace ChoiceSellSystemsWeb.Controllers
             {
                 int Gelen = UrunRepo.UrunEkle(Ekle).UrunID;
                 ViewBag.Kategori = KategorizeEt.KatogorileriListele();
-                return RedirectToAction("UrunDuzenle", Gelen);
+                return RedirectToAction("UrunDuzenle",new { Gelen });
             }
         }
         public ActionResult Ayarlar()

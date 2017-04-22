@@ -17,5 +17,7 @@ namespace ChoiceSellSystems.Entity.ViewModels
         public string Gramaj { get; set; }
         public string UrunAciklama { get; set; }
         public string Image { get; set; }
+        public string Yorum { get; set; }
+        public string marka { get; set; }
     }
 }

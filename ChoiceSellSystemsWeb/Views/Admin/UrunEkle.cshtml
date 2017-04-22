@@ -22,6 +22,18 @@
                     <form role="form" method="post">
 
                         <div class="form-group">
+                            <label>Marka Adı</label>
+                            <select class="form-control" name="marka">
+                                @{
+                                    foreach (var item in (List<ChoiceSellSystems.Entity.ViewModels.WMMArka>)ViewBag.MarkaVer)
+                                    {
+                                        <option>@item.MarkaAdi</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <label>Kategori Adı</label>
                             <select class="form-control" name="Kategori">
                              @{ 
@@ -81,6 +93,11 @@
                         <div class="form-group">
                             <label>Ürün Açıklaması</label>
                             <textarea class="form-control" rows="3" name="UrunAciklama"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ürün Yorumu</label>
+                            <textarea class="form-control" rows="3" name="Yorum"></textarea>
                         </div>
 
                         <div class="form-group">

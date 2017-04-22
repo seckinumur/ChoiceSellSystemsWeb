@@ -63,5 +63,13 @@ namespace ChoiceSellSysytems.DAL.Repository
                 return Kategorisec;
             }
         }
+        public static List<WMMArka> Markalar()
+        {
+            using (DataDb db = new DataDb())
+            {
+                var marrrr = db.Marka.Select(p => new WMMArka { MarkaID = p.MarkaID, MarkaAdi = p.MarkaAdi}).ToList();
+                return marrrr;
+            }
+        }
     }
 }

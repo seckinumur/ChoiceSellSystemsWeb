@@ -53,6 +53,7 @@
     <Compile Include="Models\CompanyInfo.cs" />
     <Compile Include="Models\Kategori.cs" />
     <Compile Include="Models\Kullanici.cs" />
+    <Compile Include="Models\Marka.cs" />
     <Compile Include="Models\Slider.cs" />
     <Compile Include="Models\UrunKategori.cs" />
     <Compile Include="Models\UrunCinsi.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="ViewModels\UrunKategoriIslemleri.cs" />
     <Compile Include="ViewModels\WMCompany.cs" />
     <Compile Include="ViewModels\WMIndirimDegistir.cs" />
+    <Compile Include="ViewModels\WMMArka.cs" />
     <Compile Include="ViewModels\WMSecim.cs" />
     <Compile Include="ViewModels\WMUrunCinsleri.cs" />
     <Compile Include="ViewModels\WMKategoriler.cs" />

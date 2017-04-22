@@ -19,5 +19,7 @@ namespace ChoiceSellSystems.Entity.ViewModels
         public string UrunKategorisi { get; set; }
         public string UrunCinsi { get; set; }
         public string Image { get; set; }
+        public string Yorum { get; set; }
+        public string marka { get; set; }
     }
 }

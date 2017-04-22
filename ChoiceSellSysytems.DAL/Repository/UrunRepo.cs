@@ -38,7 +38,11 @@ namespace ChoiceSellSysytems.DAL.Repository
                     Image = a.Image
 
                 }).ToList();
-
+                foreach (var item in Liste)
+                {
+                    var ata = db.Urun.FirstOrDefault(p => p.Silindimi == false && p.UrunID == item.UrunID);
+                    item.marka = ata.Marka.MarkaAdi;
+                }
                 return Liste;
             }
         }
@@ -61,7 +65,11 @@ namespace ChoiceSellSysytems.DAL.Repository
                     Image = a.Image
 
                 }).ToList();
-
+                foreach (var item in Liste)
+                {
+                    var ata = db.Urun.FirstOrDefault(p => p.Silindimi == false && p.UrunID == item.UrunID);
+                    item.marka = ata.Marka.MarkaAdi;
+                }
                 return Liste;
             }
         }
@@ -84,6 +92,11 @@ namespace ChoiceSellSysytems.DAL.Repository
                     Image = a.Image
 
                 }).ToList();
+                foreach (var item in Liste)
+                {
+                    var ata = db.Urun.FirstOrDefault(p => p.Silindimi == false && p.UrunID == item.UrunID);
+                    item.marka = ata.Marka.MarkaAdi;
+                }
 
                 return Liste;
             }
@@ -97,17 +110,16 @@ namespace ChoiceSellSysytems.DAL.Repository
                 db.SaveChanges();
             }
         }
-        public static void UrunEkle(WMUrun Urun)
-        {
-            using (DataDb db = new DataDb())
-            {
-                
-            }
-        }
         public static void HizliKurulum()
         {
             using (DataDb db = new DataDb())
             {
+                Marka Mekle = new Marka();
+                Mekle.MarkaAdi = "Royal Canin";
+
+                db.Marka.Add(Mekle);
+                db.SaveChanges();
+
                 Kategori k1 = new Kategori();
                 k1.KategoriAdi = "Köpek";
 
@@ -175,6 +187,8 @@ namespace ChoiceSellSysytems.DAL.Repository
                 urunekle.UruncinsiID = 1;
                 urunekle.UrunFiyati = "310,00";
                 urunekle.UrunKategoriID = 1;
+                urunekle.MarkaID = 1;
+                urunekle.Yorum = "Son Derece Güzel Bir Mama";
 
                 db.Urun.Add(urunekle);
                 db.SaveChanges();
@@ -269,9 +283,11 @@ namespace ChoiceSellSysytems.DAL.Repository
                     Kategorisi = a.Kategori.KategoriAdi,
                     UrunKategorisi = a.UrunKategori.UrunKategoriAdı,
                     UrunCinsi = a.Uruncinsi.Cinsi,
-                    Image = a.Image
-
+                    Image = a.Image,
+                    Yorum = a.Yorum
                 }).FirstOrDefault();
+                var ata = db.Urun.FirstOrDefault(p => p.Silindimi == false && p.UrunID == Urunid);
+                Secim.marka = ata.Marka.MarkaAdi;
                 return Secim;
             }
         }
@@ -320,6 +336,11 @@ namespace ChoiceSellSysytems.DAL.Repository
                     Image = a.Image
 
                 }).ToList();
+                foreach (var item in Liste)
+                {
+                    var ata = db.Urun.FirstOrDefault(p => p.Silindimi == false && p.UrunID == item.UrunID);
+                    item.marka = ata.Marka.MarkaAdi;
+                }
 
                 return Liste;
             }
@@ -442,6 +463,7 @@ namespace ChoiceSellSysytems.DAL.Repository
                 {
                     Urun ekle = new Urun();
 
+                    var markaa = db.Marka.FirstOrDefault(p => p.MarkaAdi == al.marka);
                     var bulkat = db.Kategori.FirstOrDefault(p => p.KategoriAdi == al.Kategori);
                     var bulAltkat = db.UrunKategori.FirstOrDefault(p => p.UrunKategoriAdı == al.AltKategori);
                     if(al.UrunCinsi != "Ürün Cinsi Yok")
@@ -465,6 +487,8 @@ namespace ChoiceSellSysytems.DAL.Repository
                     ekle.UrunAdi = al.UrunAdi;
                     ekle.UrunFiyati = al.UrunFiyati;
                     ekle.UrunKategoriID = bulAltkat.UrunKategoriID;
+                    ekle.Yorum = al.Yorum;
+                    ekle.MarkaID = markaa.MarkaID;
 
                     db.Urun.Add(ekle);
                     db.SaveChanges();

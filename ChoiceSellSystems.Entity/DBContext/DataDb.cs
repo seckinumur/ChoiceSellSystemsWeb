@@ -18,5 +18,6 @@ namespace ChoiceSellSystems.Entity.DBContext
         public virtual DbSet<Urun> Urun { get; set; }
         public virtual DbSet<Uruncinsi> Uruncinsi { get; set; }
         public virtual DbSet<UrunKategori> UrunKategori { get; set; }
+        public virtual DbSet<Marka> Marka { get; set; }
     }
 }
