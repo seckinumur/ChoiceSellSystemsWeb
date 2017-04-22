@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChoiceSellSystems.Entity.Models
+namespace ChoiceSellSystems.Entity.ViewModels
 {
-   public class CompanyInfo
+   public class WMCompany
     {
         public int CompanyInfoID { get; set; }
         public string Adres { get; set; }

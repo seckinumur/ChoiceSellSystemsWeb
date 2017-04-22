@@ -10,6 +10,5 @@ namespace ChoiceSellSystems.Entity.Models
     {
         public int KategoriID { get; set; }
         public string KategoriAdi { get; set; }
-        public bool Silindimi { get; set; }
     }
 }

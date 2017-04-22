@@ -154,14 +154,12 @@ namespace ChoiceSellSysytems.DAL.Repository
 
                 Uruncinsi uc1 = new Uruncinsi();
                 uc1.Cinsi = "Yavru Köpek Maması (3 ay - 12 ay arası)";
-                uc1.UrunKategoriID = 1;
 
                 db.Uruncinsi.Add(uc1);
                 db.SaveChanges();
 
                 Uruncinsi uc2 = new Uruncinsi();
                 uc2.Cinsi = "Yavru Kedi Mamaları (0-12 Ay)";
-                uc2.UrunKategoriID = 2;
 
                 db.Uruncinsi.Add(uc2);
                 db.SaveChanges();
@@ -180,6 +178,20 @@ namespace ChoiceSellSysytems.DAL.Repository
 
                 db.Urun.Add(urunekle);
                 db.SaveChanges();
+
+                CompanyInfo com = new CompanyInfo();
+                
+                com.Adres = "Adres Eklenmedi";
+                com.Facebook = "Facebook Eklenmedi";
+                com.Twitter = "Twitter Eklenmedi";
+                com.Instagram = "Instagram Eklenmedi";
+                com.Whatsapp = "00";
+                com.MobilTelefon = "00";
+                com.Telefon = "00";
+
+                db.CompanyInfo.Add(com);
+                db.SaveChanges();
+               
             }
         }
         public static void AdminIlk (WMKullanici Olustur)
@@ -197,6 +209,7 @@ namespace ChoiceSellSysytems.DAL.Repository
                 Kullanici ekle = new Kullanici();
                 ekle.Adi = Olustur.Adi;
                 ekle.Sifre = Olustur.Sifre;
+
 
                 db.Kullanici.Add(ekle);
                 db.SaveChanges();
@@ -244,7 +257,7 @@ namespace ChoiceSellSysytems.DAL.Repository
         {
             using (DataDb db = new DataDb())
             {
-                var Secim = db.Urun.Where(p => p.Silindimi == false).Select(a => new WMUrun
+                var Secim = db.Urun.Where(p => p.Silindimi == false && p.UrunID==Urunid).Select(a => new WMUrun
                 {
                     UrunID = a.UrunID,
                     UrunAdi = a.UrunAdi,
@@ -267,7 +280,7 @@ namespace ChoiceSellSysytems.DAL.Repository
             using (DataDb db = new DataDb())
             {
                 var bul = db.UrunKategori.Where(p => p.KategoriID == ID).Select(a=> new WMUrunKategorileri {
-                UrunKategoriAdı=a.UrunKategoriAdı,UrunKategoriID = a.UrunKategoriID}).ToList();
+                UrunKategoriAdı=a.UrunKategoriAdı,UrunKategoriID = a.UrunKategoriID,KategoriID= a.KategoriID}).ToList();
                 return bul;
             }
         }
@@ -277,6 +290,15 @@ namespace ChoiceSellSysytems.DAL.Repository
             {
                 var bul = db.Kategori.Where(p => p.KategoriID == ID).FirstOrDefault();
                 return bul.KategoriAdi;
+            }
+        }
+        public static string UruneKategorisineGoreKatogoriBul(int ID)
+        {
+            using (DataDb db = new DataDb())
+            {
+                var bul = db.UrunKategori.Where(p => p.UrunKategoriID == ID).FirstOrDefault();
+                var cikar = db.Kategori.FirstOrDefault(p => p.KategoriID == bul.KategoriID);
+                return cikar.KategoriAdi;
             }
         }
         public static List<WMUrun> KategoriyeGoreUrunlistele(int id)
@@ -306,7 +328,7 @@ namespace ChoiceSellSysytems.DAL.Repository
         {
             using (DataDb db = new DataDb())
             {
-                var bul = db.UrunKategori.Where(p => p.KategoriID == ID).FirstOrDefault();
+                var bul = db.UrunKategori.Where(p => p.UrunKategoriID == ID).FirstOrDefault();
                 return bul.UrunKategoriAdı;
             }
         }
@@ -324,7 +346,7 @@ namespace ChoiceSellSysytems.DAL.Repository
             using (DataDb db = new DataDb())
             {
                 var bul = db.Kategori.Where(p => p.KategoriID == al.KategoriID).FirstOrDefault();
-                bul.Silindimi = true;
+                db.Kategori.Remove(bul);
                 db.SaveChanges();
             }
         }
@@ -357,7 +379,7 @@ namespace ChoiceSellSysytems.DAL.Repository
             using (DataDb db = new DataDb())
             {
                 var bul = db.UrunKategori.Where(p => p.UrunKategoriID == al.UrunKategoriID).FirstOrDefault();
-                bul.Silindimi = true;
+                db.UrunKategori.Remove(bul);
                 db.SaveChanges();
             }
         }
@@ -366,10 +388,12 @@ namespace ChoiceSellSysytems.DAL.Repository
             using (DataDb db = new DataDb())
             {
                 bool varmı = db.UrunKategori.Any(p => p.UrunKategoriAdı == al.KatAdi);
+                var bulkat = db.Kategori.FirstOrDefault(p => p.KategoriAdi == al.Kategori);
                 if (varmı == false)
                 {
                     UrunKategori ekle = new UrunKategori();
                     ekle.UrunKategoriAdı = al.KatAdi;
+                    ekle.KategoriID = bulkat.KategoriID;
 
                     db.UrunKategori.Add(ekle);
                     db.SaveChanges();
@@ -390,7 +414,7 @@ namespace ChoiceSellSysytems.DAL.Repository
             using (DataDb db = new DataDb())
             {
                 var bul = db.Uruncinsi.Where(p => p.UruncinsiID == al.UrunCinsiID).FirstOrDefault();
-                bul.Silindimi = true;
+                db.Uruncinsi.Remove(bul);
                 db.SaveChanges();
             }
         }
@@ -406,6 +430,50 @@ namespace ChoiceSellSysytems.DAL.Repository
 
                     db.Uruncinsi.Add(ekle);
                     db.SaveChanges();
+                }
+            }
+        }
+        public static WMUrun UrunEkle(WMUrunEkle al) //Ürün Ekleme
+        {
+            using (DataDb db = new DataDb())
+            {
+                bool varmı = db.Urun.Any(p => p.UrunAdi == al.UrunAdi);
+                if (varmı == false)
+                {
+                    Urun ekle = new Urun();
+
+                    var bulkat = db.Kategori.FirstOrDefault(p => p.KategoriAdi == al.Kategori);
+                    var bulAltkat = db.UrunKategori.FirstOrDefault(p => p.UrunKategoriAdı == al.AltKategori);
+                    if(al.UrunCinsi != "Ürün Cinsi Yok")
+                    {
+                        var bulcins = db.Uruncinsi.FirstOrDefault(p => p.Cinsi == al.UrunCinsi);
+                        ekle.UruncinsiID = bulcins.UruncinsiID;
+                    }
+
+                    ekle.Gramaj = al.Gramaj;
+                    ekle.Image = al.Image;
+                    if (al.Indirim == "0")
+                    {
+                        ekle.IndirimVarmi = false;
+                    }
+                    else
+                    {
+                        ekle.Indirim = al.Indirim;
+                    }
+                    ekle.KategoriID = bulkat.KategoriID;
+                    ekle.UrunAciklama = al.UrunAciklama;
+                    ekle.UrunAdi = al.UrunAdi;
+                    ekle.UrunFiyati = al.UrunFiyati;
+                    ekle.UrunKategoriID = bulAltkat.UrunKategoriID;
+
+                    db.Urun.Add(ekle);
+                    db.SaveChanges();
+
+                    return UrunSec(db.Urun.FirstOrDefault(p => p.UrunAdi == al.UrunAdi).UrunID);
+                }
+                else
+                {
+                    return UrunSec(db.Urun.FirstOrDefault(p => p.UrunAdi == al.UrunAdi).UrunID);
                 }
             }
         }

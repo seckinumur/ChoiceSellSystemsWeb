@@ -59,14 +59,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Urun.cs" />
     <Compile Include="ViewModels\KategoriIslemleri.cs" />
+    <Compile Include="ViewModels\KullaniciIslemleri.cs" />
     <Compile Include="ViewModels\UrunCinsiIslemleri.cs" />
     <Compile Include="ViewModels\UrunKategoriIslemleri.cs" />
+    <Compile Include="ViewModels\WMCompany.cs" />
     <Compile Include="ViewModels\WMIndirimDegistir.cs" />
     <Compile Include="ViewModels\WMSecim.cs" />
     <Compile Include="ViewModels\WMUrunCinsleri.cs" />
     <Compile Include="ViewModels\WMKategoriler.cs" />
     <Compile Include="ViewModels\WMKullanici.cs" />
     <Compile Include="ViewModels\WMUrun.cs" />
+    <Compile Include="ViewModels\WMUrunEkle.cs" />
     <Compile Include="ViewModels\WMUrunKategorileri.cs" />
     <Compile Include="ViewModels\WMUrunSil.cs" />
   </ItemGroup>

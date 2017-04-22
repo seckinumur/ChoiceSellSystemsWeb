@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ChoiceSellSystemTest
@@ -121,44 +122,52 @@ namespace ChoiceSellSystemTest
         {
             using (DataDb db = new DataDb())
             {
-                var a = db.Kullanici.ToList();
-                var b = db.Kategori.ToList();
-                var c = db.UrunKategori.ToList();
-                var d = db.Uruncinsi.ToList();
-                var e = db.Urun.ToList();
-                Console.WriteLine("\n Kullanıcılar Listesi");
-                foreach (var item in a)
+                try
                 {
-                    Console.WriteLine("\r Kullanıcı Adı: " + item.Adi + " Şifresi: " + item.Sifre);
+                    var a = db.Kullanici.ToList();
+                    var b = db.Kategori.ToList();
+                    var c = db.UrunKategori.ToList();
+                    var d = db.Uruncinsi.ToList();
+                    var e = db.Urun.ToList();
+                    Console.WriteLine("\n Kullanıcılar Listesi");
+                    foreach (var item in a)
+                    {
+                        Console.WriteLine("\r Kullanıcı Adı: " + item.Adi + " Şifresi: " + item.Sifre);
+                    }
+                    Console.WriteLine("\n Kullanıcılar Listesi Tamamlandı!");
+                    Console.WriteLine("\n Kategoriler Listesi");
+                    foreach (var item in b)
+                    {
+                        Console.WriteLine("\r Kategori ID: " + item.KategoriID + " Kategori Adı: " + item.KategoriAdi);
+                    }
+                    Console.WriteLine("\n Kategoriler Listesi Tamamlandı!");
+                    Console.WriteLine("\n Ürün Kategori Listesi");
+                    foreach (var item in c)
+                    {
+                        Console.WriteLine("\r Ürün Kategori ID: " + item.UrunKategoriID + " Ürün Kategori Adı: " + item.UrunKategoriAdı);
+                    }
+                    Console.WriteLine("\n Ürün Kategoriler Listesi Tamamlandı!");
+                    Console.WriteLine("\n Ürün Cinsi Listesi");
+                    foreach (var item in d)
+                    {
+                        Console.WriteLine("\r Ürün Cinsi ID: " + item.UruncinsiID + " Ürün Cinsi Adı: " + item.Cinsi);
+                    }
+                    Console.WriteLine("\n Ürün Cinsi Listesi Tamamlandı!");
+                    Console.WriteLine("\n Ürün Listesi");
+                    foreach (var item in e)
+                    {
+                        Console.WriteLine("\r Ürün ID: " + item.UrunID + " Ürün Adı: " + item.UrunAdi);
+                    }
+                    Console.WriteLine("\n Ürün Listesi Tamamlandı!");
+                    Console.WriteLine("\n Devam Etmek İçin Bir Tuşa Basın");
+                    Console.ReadKey();
                 }
-                Console.WriteLine("\n Kullanıcılar Listesi Tamamlandı!");
-                Console.WriteLine("\n Kategoriler Listesi");
-                foreach (var item in b)
+                catch
                 {
-                    Console.WriteLine("\r Kategori ID: " + item.KategoriID + " Kategori Adı: " + item.KategoriAdi);
+                    Console.WriteLine("\n Veritabanı Oluşturma İşlemi Başarısız!");
+                    Console.WriteLine("\n Devam Etmek İçin Bir Tuşa Basın");
+                    Console.ReadKey();
                 }
-                Console.WriteLine("\n Kategoriler Listesi Tamamlandı!");
-                Console.WriteLine("\n Ürün Kategori Listesi");
-                foreach (var item in c)
-                {
-                    Console.WriteLine("\r Ürün Kategori ID: " + item.UrunKategoriID + " Ürün Kategori Adı: " + item.UrunKategoriAdı);
-                }
-                Console.WriteLine("\n Ürün Kategoriler Listesi Tamamlandı!");
-                Console.WriteLine("\n Ürün Cinsi Listesi");
-                foreach (var item in d)
-                {
-                    Console.WriteLine("\r Ürün Cinsi ID: " + item.UruncinsiID + " Ürün Cinsi Adı: " + item.Cinsi);
-                }
-                Console.WriteLine("\n Ürün Cinsi Listesi Tamamlandı!");
-                Console.WriteLine("\n Ürün Listesi");
-                foreach (var item in e)
-                {
-                    Console.WriteLine("\r Ürün ID: " + item.UrunID + " Ürün Adı: " + item.UrunAdi);
-                }
-                Console.WriteLine("\n Ürün Listesi Tamamlandı!");
-                Console.WriteLine("\n Devam Etmek İçin Bir Tuşa Basın");
-                Console.ReadKey();
-
             }
         }
         public static void AdminMode()
@@ -184,14 +193,27 @@ namespace ChoiceSellSystemTest
             while (a == 0)
             {
                 Console.Clear();
-                Console.WriteLine("©2017 Choice Corp. Veritabanı Oluşturma Sistemi");
+                for (int i = 1; i < 62; i++)
+                {
+                    Console.SetCursorPosition(0 + i, 1);
+                    Console.Write("*");
+                    Thread.Sleep(5);
+                }
+                Console.WriteLine("\n *      ©2017 Choice Corp. Veritabanı Oluşturma Sistemi      *");
+                for (int i = 1; i < 62; i++)
+                {
+                    Console.SetCursorPosition(0 + i, 4);
+                    Console.Write("*");
+                    Thread.Sleep(5);
+                }
                 Console.WriteLine("\n 1. Sıfırdan Veritabanı Oluştur.");
                 Console.WriteLine("\r 2. Deneme Ürünü Oluştur");
                 Console.WriteLine("\r 3. Admin oluştur");
                 Console.WriteLine("\r 4. Veritabanını Listele");
                 Console.WriteLine("\r 5. Çıkış");
-
                 Console.Write("\n Seçim= ");
+                
+                
                 if (!int.TryParse(Console.ReadLine(), out secim))
                 {
                     Console.WriteLine("Seçim yanlış Sayı Girin Devam etmek İçin Bir Tuşa Basın.");

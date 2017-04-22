@@ -14,7 +14,7 @@ namespace ChoiceSellSysytems.DAL.Repository
         {
             using (DataDb db = new DataDb())
             {
-                var Kategorisec = db.Kategori.Where(p => p.Silindimi == false).Select(p => new WMKategoriler { KategoriAdi = p.KategoriAdi, KategoriID= p.KategoriID }).ToList();
+                var Kategorisec = db.Kategori.Select(p => new WMKategoriler { KategoriAdi = p.KategoriAdi, KategoriID= p.KategoriID }).ToList();
                 return Kategorisec;
             }
         }
@@ -23,10 +23,10 @@ namespace ChoiceSellSysytems.DAL.Repository
             using (DataDb db = new DataDb())
             {
                 
-                var Kategorisec = db.Kategori.Where(p=> p.Silindimi==false).Select(p =>  new WMKategoriler {  KategoriID = p.KategoriID, KategoriAdi=p.KategoriAdi,UrunVarmi=false }).ToList();
+                var Kategorisec = db.Kategori.Select(p =>  new WMKategoriler {  KategoriID = p.KategoriID, KategoriAdi=p.KategoriAdi,UrunVarmi=false }).ToList();
                 foreach (var item in Kategorisec)
                 {
-                    bool varmiymis = db.Urun.Any(p => p.KategoriID == item.KategoriID);
+                    bool varmiymis = db.Urun.Any(p => p.KategoriID == item.KategoriID );
                     item.UrunVarmi = varmiymis;
                 }
                 
@@ -38,10 +38,10 @@ namespace ChoiceSellSysytems.DAL.Repository
             using (DataDb db = new DataDb())
             {
 
-                var Kategorisec = db.UrunKategori.Where(p => p.Silindimi == false).Select(p => new WMUrunKategorileri { UrunKategoriID = p.UrunKategoriID, UrunKategoriAdı = p.UrunKategoriAdı, UrunVarmi = false }).ToList();
+                var Kategorisec = db.UrunKategori.Select(p => new WMUrunKategorileri { UrunKategoriID = p.UrunKategoriID, UrunKategoriAdı = p.UrunKategoriAdı, UrunVarmi = false }).ToList();
                 foreach (var item in Kategorisec)
                 {
-                    bool varmiymis = db.Urun.Any(p => p.UrunKategoriID == item.UrunKategoriID);
+                    bool varmiymis = db.Urun.Any(p => p.UrunKategoriID == item.UrunKategoriID );
                     item.UrunVarmi = varmiymis;
                 }
 
@@ -53,10 +53,10 @@ namespace ChoiceSellSysytems.DAL.Repository
             using (DataDb db = new DataDb())
             {
 
-                var Kategorisec = db.Uruncinsi.Where(p => p.Silindimi == false).Select(p => new WMUrunCinsleri { UrunCinsiID = p.UruncinsiID, Cinsi = p.Cinsi, UrunVarmi = false }).ToList();
+                var Kategorisec = db.Uruncinsi.Select(p => new WMUrunCinsleri { UrunCinsiID = p.UruncinsiID, Cinsi = p.Cinsi, UrunVarmi = false }).ToList();
                 foreach (var item in Kategorisec)
                 {
-                    bool varmiymis = db.Urun.Any(p => p.UruncinsiID == item.UrunCinsiID);
+                    bool varmiymis = db.Urun.Any(p => p.UruncinsiID == item.UrunCinsiID );
                     item.UrunVarmi = varmiymis;
                 }
 

@@ -239,43 +239,59 @@ namespace ChoiceSellSystemsWeb.Controllers
                 return View(Listele);
             }
         }
-        public ActionResult UrunDuzenle(int ID)
+        public ActionResult UrunDuzenle(int? id)
         {
             if (Session["AdminID"] == null || Session["AdminID"].ToString() == "0")
             {
                 return RedirectToAction("Admin");
             }
+            else if (id == null)
+            {
+                return RedirectToAction("Uyari", "Uyari");
+            }
             else
             {
+                int ID = id.Value;
                 var urun = UrunRepo.UrunSec(ID);
                 ViewBag.Kategori = KategorizeEt.KatogorileriListele();
                 return View(urun);
             }
         }
-        public ActionResult KategoriyeGoreListele(int ID)
+        public ActionResult KategoriyeGoreListele(int? id)
         {
             if (Session["AdminID"] == null || Session["AdminID"].ToString() == "0")
             {
                 return RedirectToAction("Admin");
             }
+            else if (id == null)
+            {
+                return RedirectToAction("Uyari","Uyari");
+            }
             else
             {
+                int ID = id.Value;
                 var urunKategori = UrunRepo.UrunKatogoriBul(ID);
                 ViewBag.KategoriAdi = UrunRepo.KatogoriBul(ID);
                 ViewBag.Kategori = KategorizeEt.KatogorileriListele();
                 return View(urunKategori);
             }
         }
-        public ActionResult KategoriSecimineGoreListele(int ID)
+        
+        public ActionResult KategoriSecimineGoreListele(int? id)
         {
             if (Session["AdminID"] == null || Session["AdminID"].ToString() == "0")
             {
                 return RedirectToAction("Admin");
             }
+            else if (id == null)
+            {
+                return RedirectToAction("Uyari", "Uyari");
+            }
             else
             {
+                int ID = id.Value;
                 var urun = UrunRepo.KategoriyeGoreUrunlistele(ID);
-                ViewBag.KategoriAdi = UrunRepo.KatogoriBul(ID);
+                ViewBag.KategoriAdi = UrunRepo.UruneKategorisineGoreKatogoriBul(ID);
                 ViewBag.UrunkategoriIsmi = UrunRepo.UrunKatogoriBulIsmi(ID);
                 ViewBag.Kategori = KategorizeEt.KatogorileriListele();
                 return View(urun);
@@ -329,6 +345,7 @@ namespace ChoiceSellSystemsWeb.Controllers
             else
             {
                 var gonder = KategorizeEt.UrunKategorilerinHepsi();
+                ViewBag.Kategori2 = KategorizeEt.KatogorileriListele();
                 ViewBag.Kategori = KategorizeEt.KatogorileriListele();
                 return View(gonder);
             }
@@ -354,9 +371,7 @@ namespace ChoiceSellSystemsWeb.Controllers
                 {
                     UrunRepo.UrunKategoriEkle(Al);
                 }
-                var gonder = KategorizeEt.UrunKategorilerinHepsi();
-                ViewBag.Kategori = KategorizeEt.KatogorileriListele();
-                return View(gonder);
+                return RedirectToAction("AltKategoriEkle");
             }
         }
         public ActionResult UrunCinsiEkle()
@@ -396,6 +411,88 @@ namespace ChoiceSellSystemsWeb.Controllers
                 var gonder = KategorizeEt.UrunCinslerininHepsi();
                 ViewBag.Kategori = KategorizeEt.KatogorileriListele();
                 return View(gonder);
+            }
+        }
+        public ActionResult UrunEkle()
+        {
+            if (Session["AdminID"] == null || Session["AdminID"].ToString() == "0")
+            {
+                return RedirectToAction("Admin");
+            }
+            else
+            {
+                ViewBag.UrunCinsi = KategorizeEt.UrunCinslerininHepsi();
+                ViewBag.UrunKategori = KategorizeEt.UrunKategorilerinHepsi();
+                ViewBag.Kategori = KategorizeEt.KatogorileriListele();
+                var Kategorigonder = KategorizeEt.KatogorileriListele();
+                return View(Kategorigonder);
+            }
+        }
+        [HttpPost]
+        public ActionResult UrunEkle(WMUrunEkle Ekle)
+        {
+            if (Session["AdminID"] == null || Session["AdminID"].ToString() == "0")
+            {
+                return RedirectToAction("Admin");
+            }
+            else
+            {
+                int Gelen = UrunRepo.UrunEkle(Ekle).UrunID;
+                ViewBag.Kategori = KategorizeEt.KatogorileriListele();
+                return RedirectToAction("UrunDuzenle", Gelen);
+            }
+        }
+        public ActionResult Ayarlar()
+        {
+            if (Session["AdminID"] == null || Session["AdminID"].ToString() == "0")
+            {
+                return RedirectToAction("Admin");
+            }
+            else
+            {
+                var ekle = KullaniciRepo.CompanyDok();
+                ViewBag.Adres = ekle.Adres;
+                ViewBag.Telefon = ekle.Telefon;
+                ViewBag.Facebook = ekle.Facebook;
+                ViewBag.MobilTelefon = ekle.MobilTelefon;
+                ViewBag.Twitter = ekle.Twitter;
+                ViewBag.Whatsapp = ekle.Whatsapp;
+                ViewBag.Instagram = ekle.Instagram;
+                var listele = KullaniciRepo.KullanicilariListele();
+                ViewBag.Kategori = KategorizeEt.KatogorileriListele();
+                return View(listele);
+            }
+        }
+        [HttpPost]
+        public ActionResult Ayarlar(KullaniciIslemleri KUllanicial)
+        {
+            if (Session["AdminID"] == null || Session["AdminID"].ToString() == "0")
+            {
+                return RedirectToAction("Admin");
+            }
+            else
+            {
+                if (KUllanicial.Gorev == "Degistir")
+                {
+                    KullaniciRepo.KullaniciDüzenle(KUllanicial);
+                }
+                else if (KUllanicial.Gorev == "Sil")
+                {
+                    KullaniciRepo.KullanıcıSil(KUllanicial.KullaniciID);
+                }
+                else if (KUllanicial.Gorev == "Ekle")
+                {
+                    KullaniciRepo.KullanıcıEkle(KUllanicial);
+                }
+                else if (KUllanicial.Gorev== "Company")
+                {
+                    KullaniciRepo.CompanyDuzenle(KUllanicial);
+                }
+                else
+                {
+                    return RedirectToAction("Uyari", "Uyari");
+                }
+                return RedirectToAction("Ayarlar");
             }
         }
     }

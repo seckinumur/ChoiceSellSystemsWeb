@@ -4,11 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChoiceSellSystems.Entity.Models
+namespace ChoiceSellSystems.Entity.ViewModels
 {
-   public class CompanyInfo
+   public class KullaniciIslemleri
     {
-        public int CompanyInfoID { get; set; }
+        public int KullaniciID { get; set; }
+        public string Gorev { get; set; }
+        public string KatAdi { get; set; }
+        public string KatSifre { get; set; }
+
+        //ompany repo
+
         public string Adres { get; set; }
         public string Telefon { get; set; }
         public string MobilTelefon { get; set; }

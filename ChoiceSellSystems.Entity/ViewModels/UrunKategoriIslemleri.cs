@@ -11,5 +11,6 @@ namespace ChoiceSellSystems.Entity.ViewModels
         public int UrunKategoriID { get; set; }
         public string Gorev { get; set; }
         public string KatAdi { get; set; }
+        public string Kategori { get; set; }
     }
 }

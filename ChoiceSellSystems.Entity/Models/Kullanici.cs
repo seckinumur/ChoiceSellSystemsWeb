@@ -11,7 +11,6 @@ namespace ChoiceSellSystems.Entity.Models
         public int KullaniciID { get; set; }
         public string Adi { get; set; }
         public string Sifre { get; set; }
-        public bool Silindimi { get; set; }
         public bool Master { get; set; }
     }
 }

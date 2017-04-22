@@ -1,6 +1,6 @@
-﻿@model List<ChoiceSellSystems.Entity.ViewModels.WMUrunCinsleri>
+﻿@model List<ChoiceSellSystems.Entity.ViewModels.WMKullanici>
 @{
-    ViewBag.Title = "UrunCinsiEkle";
+    ViewBag.Title = "Ayarlar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -8,7 +8,7 @@
     <div class="row">
 
         <div class="col-lg-12">
-            <h1 class="page-header">Ürün Cinsi Düzenle <button class="btn btn-success" data-toggle="modal" data-target="#Comar"><i class="fa fa-paw"></i> Çomar Yardım</button> </h1>
+            <h1 class="page-header">Ayarlar <button class="btn btn-success" data-toggle="modal" data-target="#Comar"><i class="fa fa-paw"></i> Çomar Yardım</button> </h1>
 
         </div>
     </div>
@@ -16,14 +16,15 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Tüm Ürün Cinsleri Gösteriliyor
+                    Kullanıcılar gösteriliyor
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                         <thead>
                             <tr>
-                                <th>Ürün Cinsleri</th>
+                                <th>Kullanıcı Adı</th>
+                                <th>Şifresi</th>
                                 <th>İşlemler</th>
                             </tr>
                         </thead>
@@ -33,11 +34,12 @@
                                 foreach (var item in Model)
                                 {
                                     <tr>
-                                        <td>@item.Cinsi</td>
+                                        <td>@item.Adi</td>
+                                        <td>@item.Sifre</td>
                                         <td>
-                                            <button data-toggle="modal" data-target="#myModal" class="btn btn-warning" onclick="Islem(@item.UrunCinsiID)" disabled="@(item.UrunVarmi == true ? true : false)">Urun Cinsi Sil</button>
-                                            <input type="hidden" id="@item.UrunCinsiID" value="@item.Cinsi" />
-                                            <button data-toggle="modal" data-target="#Duzenle" class="btn btn-info" onclick="Islem2(@item.UrunCinsiID)">Ürün Cinsi Düzenle</button>
+                                            <button data-toggle="modal" data-target="#myModal" class="btn btn-warning" onclick="Islem(@item.KullaniciID)" disabled="@(item.KullaniciID == 2 ? true : false)">Kullanıcıyı Sil</button>
+                                            <input type="hidden" id="@item.KullaniciID" value="@item.Adi" />
+                                            <button data-toggle="modal" data-target="#Duzenle" class="btn btn-info" onclick="Islem2(@item.KullaniciID)">Kullanıcıyı Düzenle</button>
                                         </td>
                                     </tr>
 
@@ -62,21 +64,15 @@
                             </div>
                             <div class="panel-body">
                                 <p>
-                                    Merhaba! Ben SiteRobotu Çomar. Bu Sayfada Ürünlerinizin Ürün Cinsini Düzenleyebilirsiniz.
-                                    <strong>
-                                     Ürün Cinsi Bir Alt Kategori İçersinde Olan Ürünlerin Nicelik Bakımından Ayrılarak
-                                    Sınıflandırılması İçin Gerekli Olan En Alt Kategoridir. Yani Örnek Olarak "Köpek" Bir 
-                                    Kategoridir. "Köpek Maması" Bir Alt Kategoridir. "Yavru Köpek maması" ise Ürünün Cinsidir.
-                                    Köpek Kategorisi İçersinde Bulunan Ve Mamalar Kategorisindeki Yavru köpek Maması ürünün cinsidir.
-                                    Her üründe zorunlu Olmayan Ama aynı alt Kategoride Olan Ürünleri Sınıflandırmak İçin Kullanılan
-                                    En Alt Kategoridir. Sistem Bu Kategorinin Altında Başka Bir Kategoriyi Desteklemez. Bir Ürün
-                                    Eklerken Alt Kategoride Sınıflandırma Yapmak İçin Kullanılan Son Kategoridir.
-                                    </strong> Ürün Cinsi İçerlerinde Ürün Varsa Silinemezler. Eğer Sil Butonuna
-                                    Basmanıza İzin Yoksa İçersinde Hala Ürün Olan Bir Ürün Cinsini Silmek İstediğinizdendir.
+                                    Merhaba! Ben SiteRobotu Çomar. Bu Sayfada Sisteme Erişebilecek Kullanıcıları Düzenleyebilir, Sitenizin İletişim Bilgilerini Ekleyebilir veya
+                                    Değiştirebilirsiniz.<strong style="color:red"> DİKKAT!!! Bu Sayfada yapılan tüm işlemler site güvenliğiniz için çok önemlidir. Bu Sayfanın
+                                    Tüm Sorumluluğu Yazılımı Kullanan Sorumlulara Aittir. Kullanıcılar Kendi Datalarının Güvenliğinden Kendileri Sorumludur. Hiçbir Şekilde 
+                                    Geliştirici Sistemin Açıklarından yada kullanıcıların açıklarından kaynaklı Hack ile ortaya çıkan maddi manavi tüm Olaylardan sorumlu tutulamaz.
+                                    Kullanıclar Yazılımı Kullanarak Bunu Kabul Etmiş olurlar.</strong> Lütfen Güvenli Bir Şifre Belirleyin Ve Kimseyle Paylaşmayın.
                                 </p>
                             </div>
                             <div class="panel-footer">
-                                Haydi Hazırsanız Şimdi Bir Ürün Cinsi ekleyelim...
+                                Evet Kabul Ettiğimi Beyan Ederim.
                             </div>
                         </div>
                     </div>
@@ -89,14 +85,14 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="myModalLabel">Alt Kategori Silme</h4>
+                        <h4 class="modal-title" id="myModalLabel">Kullanıcı Silme</h4>
                     </div>
                     <form role="form" method="post">
                         <div class="modal-body">
-                            <input type="hidden" name="UrunCinsiID" id="SilmeAl" />
+                            <input type="hidden" name="KullaniciID" id="SilmeAl" />
                             <input type="hidden" name="Gorev" value="Sil" />
                             <div class="form-group">
-                                <label>Bu Ürün Cinsi Silenecek Devam Edilsin mi?</label>
+                                <label>Bu Kullanıcı Silinecek Devam Edilsin mi?</label>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -113,17 +109,21 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="DuzenleLabel">Ürün Cinsi Düzenle</h4>
+                        <h4 class="modal-title" id="DuzenleLabel">Kullanıcı Düzenle</h4>
                     </div>
                     <form role="form" method="post">
                         <div class="modal-body">
-                            <input type="hidden" name="UrunCinsiID" id="idal" />
+                            <input type="hidden" name="KullaniciID" id="idal" />
                             <input type="hidden" name="Gorev" value="Degistir" />
                             <div class="form-group">
-                                <label>Bu Ürün Cinsi Güncellenecek Devam Edilsin mi?</label>
+                                <label>Bu Kullanıcı Değiştirilecek Devam Edilsin mi?</label>
                                 <div class="form-group">
-                                    <label>Ürün Cinsi Adı</label>
+                                    <label>Kullanıcı Adı</label>
                                     <input class="form-control" name="KatAdi" id="BuarayaYaz">
+                                </div>
+                                <div class="form-group">
+                                    <label>Kullanıcı Şifresi</label>
+                                    <input class="form-control" name="KatSifre" type="password">
                                 </div>
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
@@ -131,17 +131,12 @@
                                     </div>
                                     <div class="panel-body">
                                         <p>
-                                            Merhaba! Ben SiteRobotu Çomar. Şimdi Seçtiğiniz Ürün Cinsinin ismini Görüyor Olmalısınız.
-                                            Buradan Ürün Cinsinin İsmini Yeniden Adlandırabilirsiniz. <strong>Ürün Cinsi Alt Kategori
-                                            ile Mantıklı Olmalıdır. "Köpek Maması" Alt Kategori İçersinde "Yavru Kedi Maması" İsimli
-                                            Ürün Cinsi Mantıklı bir İlişki Değildir. !Her Ürünün Ürün Cinsi Olmak Zorunda Değildir.
-                                            "Kedi" Kategorisindeki "Suluklar" Alt Kategorisinde "Kedi Suluğu" Adlı Bir Ürün Cinsi
-                                            Mantıklı Değildir.
-                                            </strong>
+                                            Merhaba! Ben SiteRobotu Çomar. Kullanıcı Adı Ve Şifresini Buradan Düzenleyebilirsiniz.
+                                            Her Kullanıcı Admin Modundadır ve Diğer Kullanıcları Düzenleyebilir ve silebilir.
                                         </p>
                                     </div>
                                     <div class="panel-footer">
-                                        Hazırsanız Şimdi Ürün Cinsini Güncelleyelim...
+                                        Hazırsanız Şimdi Bir Kullanıcı Güncelleyelim...
                                     </div>
                                 </div>
                             </div>
@@ -160,16 +155,20 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="EkleLabel">Ürün Cinsi Ekle</h4>
+                        <h4 class="modal-title" id="EkleLabel">Kullanıcı Ekle</h4>
                     </div>
                     <form role="form" method="post">
                         <div class="modal-body">
                             <input type="hidden" name="Gorev" value="Ekle" />
                             <div class="form-group">
-                                <label>Yeni Bir Ürün Cnsi Eklenecek Devam Edilsin mi?</label>
+                                <label>Kullanıcı Eklenecek Devam Edilsin mi?</label>
                                 <div class="form-group">
-                                    <label>Kategori Adı</label>
+                                    <label>Kullanıcı Adı</label>
                                     <input class="form-control" name="KatAdi">
+                                </div>
+                                <div class="form-group">
+                                    <label>Kullanıcı Şifresi</label>
+                                    <input class="form-control" name="KatSifre" type="password">
                                 </div>
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
@@ -177,15 +176,11 @@
                                     </div>
                                     <div class="panel-body">
                                         <p>
-                                            Merhaba! Ben SiteRobotu Çomar. Bu Menüden Yeni Bir Ürün Cinsi Ekleyebilirsiniz.<strong>
-                                            Ürün Cinsi Alt Kategori ile Mantıklı Olmalıdır. "Köpek Maması" Alt Kategori İçersinde 
-                                            "Yavru Kedi Maması" İsimli Ürün Cinsi Mantıklı bir İlişki Değildir. !Her Ürünün Ürün Cinsi 
-                                            Olmak Zorunda Değildir. "Kedi" Kategorisindeki "Suluklar" Alt Kategorisinde "Kedi Suluğu" 
-                                            Adlı Bir Ürün Cinsi Mantıklı Değildir.</strong>
+                                            Merhaba! Ben SiteRobotu Çomar. Lütfen Kullanıcı Adı Ve Şifresini Kimseyle Paylaşmayın!!!!
                                         </p>
                                     </div>
                                     <div class="panel-footer">
-                                        Hazırsanız Şimdi Yeni Bir Ürün Cinsi Ekleyelim...
+                                        Tamam Hazırım...
                                     </div>
                                 </div>
                             </div>
@@ -201,8 +196,58 @@
 
         <div class="col-lg-12">
             <div>
-                <button data-toggle="modal" data-target="#Ekle" class="btn btn-info col-lg-12">Ürün Cinsi Ekle</button>
-                <p class="text-warning"><strong>Bir Ürün Cinsi Eklemek İçin Ürün Cinsi Ekle Butonuna Basın</strong></p>
+                <button data-toggle="modal" data-target="#Ekle" class="btn btn-info col-lg-12">Kullanıcı Ekle</button>
+                <p class="text-warning"><strong>Bir Kullanıcı Eklemek İçin Kullanıcı Ekle Butonuna Basın</strong></p>
+            </div>
+            <hr />
+            <div>
+                <h3 class="text-warning">Site Bilgileri</h3>
+                <hr />
+                <form role="form" method="post">
+
+                    <input type="hidden" name="Gorev" value="Company" />
+
+                    <div class="form-group">
+                        <label>Adres</label>
+                        <textarea class="form-control" name="Adres">@ViewBag.Adres</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Telefon</label>
+                        <input class="form-control" name="Telefon"  value="@ViewBag.Telefon">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mobil Telefon</label>
+                        <input class="form-control" name="MobilTelefon"  value="@ViewBag.MobilTelefon">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Facebook</label>
+                        <input class="form-control" name="Facebook" value="@ViewBag.Facebook">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Twitter</label>
+                        <input class="form-control" name="Twitter" value="@ViewBag.Twitter">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Whatsapp</label>
+                        <input class="form-control" name="Whatsapp" value="@ViewBag.Whatsapp">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Instagram</label>
+                        <input class="form-control" name="Instagram" value="@ViewBag.Instagram">
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">Güncelle/Ekle</button>
+                    </div>
+
+                </form>
+
             </div>
         </div>
     </div>
@@ -218,3 +263,4 @@
         document.getElementById("BuarayaYaz").value = a;
     }
 </script>
+

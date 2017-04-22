@@ -22,6 +22,18 @@
     <link href="~/Content/css/sb-admin-2.min.css" rel="stylesheet" />
     <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
 
+    <script type = 'text/javascript' >
+        var appInsights=window.appInsights||function(config)
+        {
+            function r(config){ t[config] = function(){ var i = arguments; t.queue.push(function(){ t[config].apply(t, i)})} }
+            var t = { config:config},u=document,e=window,o='script',s=u.createElement(o),i,f;for(s.src=config.url||'//az416426.vo.msecnd.net/scripts/a/ai.0.js',u.getElementsByTagName(o)[0].parentNode.appendChild(s),t.cookie=u.cookie,t.queue=[],i=['Event','Exception','Metric','PageView','Trace','Ajax'];i.length;)r('track'+i.pop());return r('setAuthenticatedUserContext'),r('clearAuthenticatedUserContext'),config.disableExceptionTracking||(i='onerror',r('_'+i),f=e[i],e[i]=function(config, r, u, e, o) { var s = f && f(config, r, u, e, o); return s !== !0 && t['_' + i](config, r, u, e, o),s}),t
+        }({
+            instrumentationKey:'9bed25ec-4a68-424b-9205-76bec35df644'
+        });
+        
+        window.appInsights=appInsights;
+        appInsights.trackPageView();
+    </script>
 </head>
 
 <body>
@@ -53,7 +65,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="~/Uyari/Uyari"><i class="fa fa-sign-out fa-fw"></i> Çıkış</a>
+                            <a href="~/Admin/Ayarlar"><i class="fa fa-gear fa-fw"></i> Ayarlar</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -70,6 +82,9 @@
                             <a href="~/Admin/AdminPage"><i class="fa fa-dashboard fa-fw "></i> Ana Ekran</a>
                         </li>
                         <li>
+                            <a href="~/Admin/Ayarlar"><i class="fa fa-gear fa-fw "></i> Ayarlar</a>
+                        </li>
+                        <li>
                             <a href="~/Admin/KategoriEkle"><i class="fa fa-th-list"></i> Kategori Düzenle</a>
                         </li>
                         <li>
@@ -79,7 +94,7 @@
                             <a href="~/Admin/UrunCinsiEkle"><i class="fa fa-list"></i> Ürün Cinsi Düzenle</a>
                         </li>
                         <li>
-                            <a href="~/Uyari/Uyari"><i class="fa fa-shopping-cart"></i> Ürün ekle</a>
+                            <a href="~/Admin/UrunEkle"><i class="fa fa-shopping-cart"></i> Ürün ekle</a>
                         </li>
 
                         @{

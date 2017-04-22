@@ -35,7 +35,7 @@
                                     <tr>
                                         <td>@item.UrunKategoriAdı</td>
                                         <td>
-                                            <button data-toggle="modal" data-target="#myModal" class="btn btn-warning" onclick="Islem(@item.UrunKategoriID)" disabled="@(item.UrunVarmi == true ? true : false)">Kategoriyi Sil</button>
+                                            <button data-toggle="modal" data-target="#myModal" class="btn btn-warning" onclick="Islem(@item.UrunKategoriID)" disabled="@(item.UrunVarmi == true ? true : false)">Alt Kategoriyi Sil</button>
                                             <input type="hidden" id="@item.UrunKategoriID" value="@item.UrunKategoriAdı" />
                                             <button data-toggle="modal" data-target="#Duzenle" class="btn btn-info" onclick="Islem2(@item.UrunKategoriID)">Alt Kategoriyi Düzenle</button>
                                         </td>
@@ -161,8 +161,19 @@
                             <div class="form-group">
                                 <label>Yeni Bir Alt Kategori Eklenecek Devam Edilsin mi?</label>
                                 <div class="form-group">
-                                    <label>Kategori Adı</label>
+                                    <label>Alt Kategori Adı</label>
                                     <input class="form-control" name="KatAdi">
+                                </div>
+                                <div class="form-group">
+                                    <label>Kategori Adı</label>
+                                    <select class="form-control" name="Kategori">
+                                        @{
+                                            foreach (var item in (List<ChoiceSellSystems.Entity.ViewModels.WMKategoriler>) ViewBag.Kategori2)
+                                            {
+                                                <option>@item.KategoriAdi</option>
+                                            }
+                                        }
+                                    </select>
                                 </div>
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">

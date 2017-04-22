@@ -10,7 +10,6 @@ namespace ChoiceSellSystems.Entity.ViewModels
     {
         public int UrunCinsiID { get; set; }
         public string Cinsi { get; set; }
-        public int UrunKategoriID { get; set; }
         public bool UrunVarmi { get; set; }
     }
 }

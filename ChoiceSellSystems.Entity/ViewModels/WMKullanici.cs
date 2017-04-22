@@ -8,7 +8,9 @@ namespace ChoiceSellSystems.Entity.ViewModels
 {
    public class WMKullanici
     {
+        public int KullaniciID { get; set; }
         public string Adi { get; set; }
         public string Sifre { get; set; }
+        public bool Master { get; set; }
     }
 }
